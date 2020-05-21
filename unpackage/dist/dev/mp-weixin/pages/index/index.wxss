@@ -1,0 +1,63 @@
+
+.main{
+	width:100%;
+	height: 100%;
+	background-color: #FCEDD1;
+}
+.textImg{
+	width:583rpx;
+	height: 123rpx;
+	margin-top: 55rpx;
+}
+.foImg{
+	width:689rpx;
+	height: 804rpx;
+	margin-top: 42rpx;
+}
+.btnBox{
+	width:100%;
+	position: fixed;
+	bottom:128rpx;
+	left:50%;
+	-webkit-transform: translateX(-50%);
+	        transform: translateX(-50%);
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.btnBoxItem{
+	position: relative;
+	width:518rpx;
+	height: 90rpx;
+}
+.btnBoxItem:nth-child(1){
+	margin-bottom: 27rpx;
+}
+.btnImg{
+	width:518rpx;
+	height: 90rpx;
+}
+.btnText{
+	position: absolute;
+	width:299rpx;
+	height: 42rpx;
+	left:50%;
+	top:50%;
+	-webkit-transform: translate(-50%,-50%);
+	        transform: translate(-50%,-50%);
+}
+.menuIcon{
+	position: fixed;
+	width:104rpx;
+	height: 104rpx;
+	bottom:20rpx;
+	right:20rpx;
+}
+

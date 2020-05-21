@@ -1,0 +1,1 @@
+<view class="main"><view class="box"><block wx:for="{{8}}" wx:for-item="item" wx:for-index="__i0__" wx:key="*this"><view class="li"><view class="t">财源滚滚</view></view></block></view></view>

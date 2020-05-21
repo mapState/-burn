@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/dojoList/dojoList",
+    "pages/dojoDetail/dojoDetail",
+    "pages/test/test"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "易经烧香",
+    "navigationBarBackgroundColor": "#9A392E",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {}
+}

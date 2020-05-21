@@ -1,0 +1,29 @@
+
+.list{
+	width:700rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	margin-top: 31rpx;
+}
+.listItem{
+	width:324rpx;
+	padding:0 13rpx;
+	margin-bottom: 29rpx;
+}
+.listImg{
+	width:324rpx;
+	height:431rpx;
+	border-radius:10px;
+	margin-bottom: 26rpx;
+}
+.listItemText{
+	width:100%;
+	text-align: center;
+	font-size:34rpx;
+	font-weight:400;
+	color:rgba(147,92,65,1);
+}
+
