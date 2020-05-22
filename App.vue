@@ -106,9 +106,12 @@
 
 <style>
 	@import url("common/animate.min.css");
+	@font-face{
+		font-family: "book";
+		src:url('http://121.40.141.26/mini/book.TTF')
+	}
 	page{
 		width:100%;
-		height: 100%;
 		font-size:32rpx;
 		font-family: "PingFang SC",miui,system-ui,-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,sans-serif;
 	}

@@ -3,7 +3,7 @@
 		<image src="../../static/img/text.png" mode="aspectFill" class="textImg"></image>
 		<image src="../../static/img/fo.png" mode="aspectFill" class="foImg"></image>
 		<view class="btnBox">
-			<view class="btnBoxItem" @click="goDojoList">
+			<view class="btnBoxItem">
 				<image src="../../static/img/btn.png" class="btnImg" mode="aspectFill"></image>
 				<image src="../../static/img/text1.png" mode="aspectFill" class="btnText"></image>
 			</view>
@@ -12,7 +12,7 @@
 				<image src="../../static/img/text1.png" mode="aspectFill" class="btnText"></image>
 			</view>
 		</view>
-		<image src="../../static/img/menu.png" mode="aspectFill" class="menuIcon"></image>
+		<image src="../../static/img/menu.png" mode="aspectFill" class="menuIcon" @click="goDojoList"></image>
 	</view>
 </template>
 
@@ -37,6 +37,9 @@
 </script>
 
 <style>
+	page{
+		height: 100%;
+	}
 	.main{
 		width:100%;
 		height: 100%;

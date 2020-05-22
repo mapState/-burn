@@ -24,12 +24,22 @@
       "list": []
     },
     "miniprogram": {
-      "current": 0,
+      "current": 1,
       "list": [
         {
-          "name": "test",
+          "name": "dojoDetail",
           "id": 0,
-          "pathName": "pages/test/test"
+          "pathName": "pages/dojoDetail/dojoDetail"
+        },
+        {
+          "name": "chooseDojo",
+          "id": 1,
+          "pathName": "pages/chooseDojo/chooseDojo"
+        },
+        {
+          "name": "birthday",
+          "id": 2,
+          "pathName": "pages/birthday/birthday"
         }
       ]
     }

@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/dojoList/dojoList",
     "pages/dojoDetail/dojoDetail",
-    "pages/test/test"
+    "pages/chooseDojo/chooseDojo",
+    "pages/birthday/birthday"
   ],
   "subPackages": [],
   "window": {
