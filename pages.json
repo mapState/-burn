@@ -25,10 +25,14 @@
         ,{
             "path" : "pages/birthday/birthday",
             "style" : {}
+        },
+        {
+            "path" : "pages/matchDojo/matchDojo",
+            "style" : {}
         }
     ],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "易经烧香",
 		"navigationBarBackgroundColor": "#9A392E",
 		"backgroundColor": "#F8F8F8"
@@ -52,6 +56,10 @@
 			{
 				"name": "birthday",
 				"path" : "pages/birthday/birthday"
+			},
+			{
+				"name": "matchDojo",
+				"path" : "pages/matchDojo/matchDojo"
 			}
 			
 	    ]}

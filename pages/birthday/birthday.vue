@@ -14,7 +14,7 @@
 		<template v-if="step===1">
 			<view class="selBox">
 				<view class="selBoxTxt">生辰八字:</view>
-				 <view class="yang one" :class="radio===0?'selRadio':''" @click="selRadio(0)">
+				<!-- <view class="yang one" :class="radio===0?'selRadio':''" @click="selRadio(0)">
 					<view class="radio">
 					</view>
 					<text class="radioTxt">阴历</text>
@@ -23,9 +23,9 @@
 					<view class="radio">
 					</view>
 					<text class="radioTxt">阳历</text>
-				</view>
+				</view> -->
 			</view>
-			<view class="date">
+			<!-- <view class="date">
 				<text class="dSpan">年</text>
 				<input class="input" focus placeholder="请输入年份" v-model="form.year"/>
 			</view>
@@ -40,6 +40,10 @@
 			<view class="date">
 				<text class="dSpan">时</text>
 				<input class="input" focus placeholder="请输入时辰" v-model="form.hour"/>
+			</view> -->
+			<view class="calendarBox" @click="showDateDialog(2, 'number')">
+				<input type="text" value="" placeholder-class="plClass"
+				v-model="endDate" placeholder="请选择您的生辰" class="dateInput"/>
 			</view>
 		</template>
 		<template v-if="step===2">
@@ -49,20 +53,82 @@
 			<text v-for="(item,index) in sex" :key="index" @click="selSex(index)" class="sexItem"
 			:class="{'sexActive':index==sexIndex}">{{item}}</text>
 		</template>
-		<view class="btnBox" @click="submit">
+		<template v-if="step===3">
+			<view class="want">
+				<view class="wantText">出生方位：</view>
+			</view>
+			<view class="calendarBox" style="margin-bottom:60rpx;">
+				<pick-regions :defaultRegion="defaultRegionCode" @getRegion="handleGetRegion">
+					<input type="text" value="" placeholder-class="plClass"
+					v-model="regionName" placeholder="请选择出生方位" class="dateInput"/>
+				</pick-regions>
+			</view>
+			<view class="want">
+				<view class="wantText">现居方位：</view>
+			</view>
+			<view class="calendarBox" style="margin-bottom:60rpx;">
+				<pick-regions :defaultRegion="defaultRegionCode" @getRegion="handleGetRegion1">
+					<input type="text" value="" placeholder-class="plClass"
+					v-model="regionName1" placeholder="请选择现居方位" class="dateInput"/>
+				</pick-regions>
+			</view>
+		</template>
+		<template v-if="step===4">
+			<view class="nameBox" style="margin-top:60rpx;">
+				<text class="nameTitle">姓氏：</text>
+				<input type="text" value="" v-model="nameForom.surname" class="nameInput"/>
+			</view>
+			<view class="nameBox">
+				<text class="nameTitle">名讳：</text>
+				<input type="text" value="" v-model="nameForom.name" class="nameInput"/>
+			</view>
+		</template>
+		<view class="btnBox" @click="submit" v-else>
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
 			<text class="btnText">确定</text>
 		</view>
+		<view class="btnBox" @click="goMatchDojo" v-if="step==4">
+			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
+			<text class="btnText">开始匹配本命财神道场</text>
+		</view>
+		<!-- 日历组件 -->
+		<zan-calendar
+			:date="date" 
+			:time="time" 
+			:isHourShow="isHourShow" 
+			:isMinShow="isMinShow" 
+			:show="dateDialog" 
+			:lunarType = "lunarType"
+			@closeDialog="closeDialog" 
+			@confirmDialog="confirmDialog"
+			@selType="getType"
+		>
+		</zan-calendar>
 	</view>
 </template>
 
 <script>
+	import zanCalendar from '@/components/quick-calendar/calendar';
+	import pickRegions from '@/components/pick-regions/pick-regions.vue'
 	export default {
+		components:{
+			zanCalendar,
+			pickRegions
+		},
 		data() {
 			return {
+				date: '2020-05-22',//日期
+				time: '13-26',//时间
+				isHourShow: false,//是否显示时辰（小时）
+				isMinShow: false,//是否显示分钟
+				lunarType: 'number', //年月日显示方式
+				dateDialog: false,//是否弹出日历组件
+				calendar:'',//选中的日期
+				type:0,//默认阳历
+				endDate:'',
 				wishList:[],
 				radio:0,
-				step:2,
+				step:1,
 				form:{
 					year:'',
 					month:'',
@@ -70,7 +136,25 @@
 					hour:''
 				},
 				sex:['男','女'],
-				sexIndex:0
+				sexIndex:0,
+				region:[],//默认地址
+				region1:[],//默认地址
+				defaultRegion:['广东省','广州市','番禺区'],
+				defaultRegionCode:'440113',
+				nameForom:{
+					surname:'',
+					name:''
+				}
+			}
+		},
+		computed:{
+			regionName(){
+				// 转为字符串
+				return this.region.map(item=>item.name).join(' ')
+			},
+			regionName1(){
+				// 转为字符串
+				return this.region1.map(item=>item.name).join(' ')
 			}
 		},
 		onLoad() {
@@ -83,6 +167,11 @@
 			});
 		},
 		methods: {
+			goMatchDojo(){
+				uni.redirectTo({
+					url:'/pages/matchDojo/matchDojo'
+				})
+			},
 			//选择性别
 			selSex(index){
 				this.sexIndex=index
@@ -98,7 +187,63 @@
 			},
 			submit(){
 				console.log(this.form)
+				if(this.step==4){
+					return
+				}
 				this.step++
+			},
+			//示例，展示三种不同的选择调度
+			getType(type){
+				if(type==='solar'){
+					this.type=0
+				}else{
+					this.type=1
+				}
+				console.log(this.type)
+			},
+			showDateDialog: function(type, lunarType) {
+				switch(type){
+					case 1:
+						this.isHourShow = false;
+						this.isMinShow = false;
+					break;
+					case 2:
+						this.isHourShow = true;
+						this.isMinShow = false;
+					break;
+					case 3:
+						this.isHourShow = true;
+						this.isMinShow = true;
+					break;
+				}
+			
+				this.dateDialog = true;
+				this.lunarType = lunarType;
+			},
+			//示例，在为确认是就点击了取消，直接关闭弹窗
+			closeDialog: function() {
+				this.dateDialog = false;
+			},
+			//示例，点击了确认后的相关操作，并再次点击确认时间后的返回，这里可以写自己的操作了
+			confirmDialog: function(e) {
+				console.log(e);
+				let str=''
+				if(e.type==0){
+					str='阳历:'+e.t1
+				}else{
+					str='阴历:'+e.t2
+				}
+				this.endDate=str
+				console.log("选择的日期是：" + e.date);
+				console.log("选择的时间是：" + e.time);
+				this.closeDialog()
+			},
+			// 获取选择的地区
+			handleGetRegion(region){
+				this.region = region
+			},
+			handleGetRegion1(region){
+				this.region1 = region	
 			}
 		}
 	}
@@ -284,5 +429,52 @@
 	}
 	.sexActive{
 		background:rgba(179,127,93,1);
+	}
+	.calendarBox{
+		width:100%;
+	}
+	.dateInput{
+		width:600rpx;
+		height: 40rpx;
+		padding:6px 0;
+		margin-left:69rpx;
+		border:2rpx solid rgba(126,107,90,1);
+		font-size:36rpx;
+		font-family:'book';
+		font-weight:400;
+		color:#9A392E;
+	}
+	.plClass{
+		font-size:36rpx;
+		font-family:'book';
+		font-weight:400;
+		color:#9A392E;
+	}
+	.nameBox{
+		width:100%;
+		padding-left:69rpx;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		margin-bottom: 65rpx;
+	}
+	.nameTitle{
+		width:183rpx;
+		height:51rpx;
+		background:rgba(154,57,46,1);
+		border-radius:10rpx;
+		font-size:36rpx;
+		font-family:'book';
+		font-weight:400;
+		color:rgba(255,255,255,1);
+		text-align: center;
+		line-height:51rpx;
+	}
+	.nameInput{
+		width:371rpx;
+		height:81rpx;
+		border:2rpx solid rgba(126,107,90,1);
+		border-radius:10rpx;
+		margin-left:12rpx;
 	}
 </style>

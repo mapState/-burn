@@ -3,13 +3,13 @@
 		<image src="../../static/img/text.png" mode="aspectFill" class="textImg"></image>
 		<image src="../../static/img/fo.png" mode="aspectFill" class="foImg"></image>
 		<view class="btnBox">
-			<view class="btnBoxItem">
+			<view class="btnBoxItem" @click="goChoseDojo(0)">
 				<image src="../../static/img/btn.png" class="btnImg" mode="aspectFill"></image>
-				<image src="../../static/img/text1.png" mode="aspectFill" class="btnText"></image>
+				<text class="btnText">为自己匹配道场</text>
 			</view>
-			<view class="btnBoxItem">
+			<view class="btnBoxItem" @click="goChoseDojo(1)">
 				<image src="../../static/img/btn.png" class="btnImg" mode="aspectFill"></image>
-				<image src="../../static/img/text1.png" mode="aspectFill" class="btnText"></image>
+				<text class="btnText">为他人匹配道场</text>
 			</view>
 		</view>
 		<image src="../../static/img/menu.png" mode="aspectFill" class="menuIcon" @click="goDojoList"></image>
@@ -31,6 +31,11 @@
 				uni.navigateTo({
 				    url: '/pages/dojoList/dojoList'
 				});
+			},
+			goChoseDojo(){
+				uni.navigateTo({
+					url:'/pages/chooseDojo/chooseDojo'
+				})
 			}
 		}
 	}
@@ -79,11 +84,15 @@
 	}
 	.btnText{
 		position: absolute;
-		width:299rpx;
-		height: 42rpx;
-		left:50%;
-		top:50%;
-		transform: translate(-50%,-50%);
+		width:100%;
+		height:100%;
+		top:0;
+		left:0;
+		text-align: center;
+		line-height: 90rpx;
+		color: #F5C9B4;
+		font-family: 'book';
+		font-size: 42rpx;
 	}
 	.menuIcon{
 		position: fixed;

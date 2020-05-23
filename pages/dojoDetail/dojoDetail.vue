@@ -73,6 +73,7 @@
 				this.countdown()
 			},
 			close(){
+				this.timer&&clearTimeout(this.timer)
 				this.$refs.popup.close()
 			},
 			countdown(){
@@ -217,7 +218,7 @@
 		text-align: center;
 		line-height:81rpx;
 		font-size:45rpx;
-		font-family:書體坊顏體㊣;
+		font-family:'book';
 		font-weight:400;
 		color:rgba(220,198,177,1);
 	}

@@ -242,13 +242,13 @@
 		text-align: center;
 		left: 50%;
 		margin-left: -70rpx;
-		top:-10rpx;
+		top:-40rpx;
 		width:140rpx;
 		/* border:1px solid #f60; */
 	}
 	.gossipTitle{
 		display: block;
-		padding:6rpx 0;
+		padding:20rpx 0;
 		background:rgba(252,237,209,1);
 		font-size:35rpx;
 		font-family:STKaitiTC;
@@ -284,33 +284,36 @@
 	.selActive .one,.selActive .half{
 		background:rgba(8,4,3,1) !important;
 	}
+	.selActive .gossipTitle{
+		color:rgba(8,4,3,1) !important;
+	}
 	.itemBox:nth-of-type(2){
 		transform: rotate(45deg);
-		transform-origin:70rpx 280rpx;
+		transform-origin:70rpx 310rpx;
 	}
 	.itemBox:nth-of-type(3){
 		transform: rotate(90deg);
-		transform-origin:70rpx 280rpx;
+		transform-origin:70rpx 310rpx;
 	}
 	.itemBox:nth-of-type(4){
 		transform: rotate(135deg);
-		transform-origin:70rpx 280rpx;
+		transform-origin:70rpx 310rpx;
 	}
 	.itemBox:nth-of-type(5){
 		transform: rotate(180deg);
-		transform-origin:70rpx 280rpx;
+		transform-origin:70rpx 310rpx;
 	}
 	.itemBox:nth-of-type(6){
 		transform: rotate(225deg);
-		transform-origin:70rpx 280rpx;
+		transform-origin:70rpx 310rpx;
 	}
 	.itemBox:nth-of-type(7){
 		transform: rotate(270deg);
-		transform-origin:70rpx 280rpx;
+		transform-origin:70rpx 310rpx;
 	}
 	.itemBox:nth-of-type(8){
 		transform: rotate(315deg);
-		transform-origin:70rpx 280rpx;
+		transform-origin:70rpx 310rpx;
 	}
 	.rotate180{
 		transform: rotate(180deg);

@@ -4,14 +4,16 @@
     "pages/dojoList/dojoList",
     "pages/dojoDetail/dojoDetail",
     "pages/chooseDojo/chooseDojo",
-    "pages/birthday/birthday"
+    "pages/birthday/birthday",
+    "pages/matchDojo/matchDojo"
   ],
   "subPackages": [],
   "window": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "易经烧香",
     "navigationBarBackgroundColor": "#9A392E",
     "backgroundColor": "#F8F8F8"
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap56.json"
 }

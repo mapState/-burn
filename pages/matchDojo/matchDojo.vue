@@ -1,0 +1,145 @@
+<template>
+	<view class="main">
+		<image src="../../static/img/fua.png" mode="widthFix" class="bgImg"></image>
+		<view class="top">
+			<image src="../../static/img/border.png" mode="aspectFill" class="borderImg"></image>
+			<text class="title">星盘轮转 推演大成</text>
+		</view>
+		<text class="wantTitle">***,您祈求之福报为</text>
+		<view class="wantList">
+			<text class="wantItem">1</text>
+			<text class="wantItem">1</text>
+			<text class="wantItem">1</text>
+		</view>
+		<text class="wantTitle">您的本命道神场是</text>
+		<view class="natal">
+			
+		</view>
+		<text class="hz">杭州福星观</text>
+		<text class="hz">东方招宝天尊道场</text>
+		<view class="btnBox" @click="goDojoDetail">
+			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
+			<text class="btnText">立即前往</text>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				
+			}
+		},
+		methods: {
+			goDojoDetail(){
+				uni.navigateTo({
+					url:"/pages/dojoDetail/dojoDetail"
+				})
+			}
+		}
+	}
+</script>
+
+<style>
+	page{
+		background:rgba(252,237,209,1);
+	}
+	.bgImg{
+		position: fixed;
+		width:366rpx;
+		height: auto;
+		top:58rpx;
+		left:50%;
+		transform: translateX(-50%);
+		z-index: -1;
+	}
+	.top{
+		position: relative;
+		width:603rpx;
+		height: 129rpx;
+		margin-top: 51rpx;
+		margin-bottom: 28rpx;
+	}
+	.borderImg{
+		width:100%;
+		height: 100%;
+	}
+	.title{
+		position: absolute;
+		width:100%;
+		height: 100%;
+		top:0;
+		left:0;
+		text-align: center;
+		line-height:129rpx ;
+		font-size:58rpx;
+		font-family:'book';
+		font-weight:400;
+		color:rgba(147,92,65,1);
+	}
+	.wantTitle{
+		display: block;
+		width:100%;
+		font-size:48rpx;
+		font-family:'book';
+		font-weight:400;
+		color:rgba(149,95,68,1);
+		padding-left: 80rpx;
+		box-sizing: border-box;
+	}
+	.wantList{
+		width:100%;
+		box-sizing: border-box;
+		padding-left:80rpx;
+		display: flex;
+		margin-top: 15rpx;
+		margin-bottom: 64rpx;
+	}
+	.wantItem{
+		display: block;
+		width:190rpx;
+		height:82rpx;
+		background:rgba(209,192,165,1);
+		border:1px solid rgba(126,107,90,1);
+		margin-right: 14rpx;;
+		text-align: center;
+		line-height: 83rpx;
+	}
+	.natal{
+		width:603rpx;
+		height: 340rpx;
+		background-color: #D1C0A5;
+		margin-top: 17rpx;
+		margin-bottom: 30rpx;
+	}
+	.hz{
+		font-size:60rpx;
+		font-family:'book';
+		font-weight:400;
+		color:rgba(149,95,68,1);
+	}
+	.btnBox{
+		position: relative;
+		width:574rpx;
+		height:89rpx;
+		margin-top: 48rpx;
+	}
+	.btnImg{
+		width:100%;
+		height: 100%;
+	}
+	.btnText{
+		position: absolute;
+		left:0;
+		top:0;
+		width:100%;
+		height: 100%;
+		text-align: center;
+		line-height: 89rpx;
+		font-size:45rpx;
+		font-family:'book';
+		font-weight:400;
+		color:rgba(220,198,177,1);
+	}
+</style>
