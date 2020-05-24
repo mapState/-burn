@@ -96,7 +96,7 @@
 	.leftIconBox{
 		/* width: 100%;
 		background-color: #000000; */
-		position: absolute;
+		position: fixed;
 		left:37rpx;
 		height: 32px;
 		display: flex;

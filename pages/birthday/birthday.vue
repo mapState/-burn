@@ -41,8 +41,8 @@
 				<text class="dSpan">时</text>
 				<input class="input" focus placeholder="请输入时辰" v-model="form.hour"/>
 			</view> -->
-			<view class="calendarBox" @click="showDateDialog(2, 'number')">
-				<input type="text" value="" placeholder-class="plClass"
+			<view class="calendarBox" @click.stop="showDateDialog(2, 'number')">
+				<input type="text" value="" placeholder-class="plClass" :disabled="true"
 				v-model="endDate" placeholder="请选择您的生辰" class="dateInput"/>
 			</view>
 		</template>
@@ -59,7 +59,7 @@
 			</view>
 			<view class="calendarBox" style="margin-bottom:60rpx;">
 				<pick-regions :defaultRegion="defaultRegionCode" @getRegion="handleGetRegion">
-					<input type="text" value="" placeholder-class="plClass"
+					<input type="text" value="" placeholder-class="plClass" :disabled="true"
 					v-model="regionName" placeholder="请选择出生方位" class="dateInput"/>
 				</pick-regions>
 			</view>
@@ -68,7 +68,7 @@
 			</view>
 			<view class="calendarBox" style="margin-bottom:60rpx;">
 				<pick-regions :defaultRegion="defaultRegionCode" @getRegion="handleGetRegion1">
-					<input type="text" value="" placeholder-class="plClass"
+					<input type="text" value="" placeholder-class="plClass" :disabled="true"
 					v-model="regionName1" placeholder="请选择现居方位" class="dateInput"/>
 				</pick-regions>
 			</view>
