@@ -108,7 +108,7 @@
 	@import url("common/animate.min.css");
 	@font-face{
 		font-family: "book";
-		src:url('http://121.40.141.26/mini/book.TTF')
+		src:url('http://121.40.141.26/mini/book.TTF') format('truetype');
 	}
 	page{
 		width:100%;
