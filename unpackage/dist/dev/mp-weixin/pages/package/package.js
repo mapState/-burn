@@ -270,7 +270,11 @@ __webpack_require__.r(__webpack_exports__);
         success: function success(res) {
           console.log(res);
           context.drawImage(_this2.bgPath, 0, 0, _this2.width, _this2.height);
-          context.drawImage(_this2.god, 0, 0, 206 * _this2.pixelRatio, 159 * _this2.pixelRatio, 10 * _this2.pixelRatio, 51 * _this2.pixelRatio, 206 * _this2.pixelRatio, 159 * _this2.pixelRatio);
+          if (_this2.pixelRatio === 2) {
+            context.drawImage(_this2.god, 0, 0, 206 * _this2.pixelRatio, 159 * _this2.pixelRatio, 10 * _this2.pixelRatio, 51 * _this2.pixelRatio, 206 * _this2.pixelRatio, 159 * _this2.pixelRatio);
+          } else {
+            context.drawImage(_this2.god, 0, 0, 206 * _this2.pixelRatio, 159 * _this2.pixelRatio, 46 * _this2.pixelRatio, 51 * _this2.pixelRatio, 206 * _this2.pixelRatio, 159 * _this2.pixelRatio);
+          }
           context.save();
           context.restore();
           wx.getImageInfo({

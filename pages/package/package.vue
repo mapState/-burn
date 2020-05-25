@@ -135,7 +135,11 @@
 				  success: (res) => {
 					console.log(res)
 					context.drawImage(this.bgPath, 0,0,this.width,this.height);
-					context.drawImage(this.god,0,0,206*this.pixelRatio,159*this.pixelRatio,10*this.pixelRatio,51*this.pixelRatio,206*this.pixelRatio,159*this.pixelRatio);
+					if(this.pixelRatio===2){
+						context.drawImage(this.god,0,0,206*this.pixelRatio,159*this.pixelRatio,10*this.pixelRatio,51*this.pixelRatio,206*this.pixelRatio,159*this.pixelRatio);
+					}else{
+						context.drawImage(this.god,0,0,206*this.pixelRatio,159*this.pixelRatio,46*this.pixelRatio,51*this.pixelRatio,206*this.pixelRatio,159*this.pixelRatio);
+					}
 					context.save();
 					context.restore();
 					wx.getImageInfo({
