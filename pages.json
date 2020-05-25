@@ -30,6 +30,10 @@
             "path" : "pages/matchDojo/matchDojo",
             "style" : {}
         }
+        ,{
+            "path" : "pages/package/package",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
@@ -60,6 +64,10 @@
 			{
 				"name": "matchDojo",
 				"path" : "pages/matchDojo/matchDojo"
+			},
+			{
+				"name": "package",
+				"path" : "pages/package/package"
 			}
 			
 	    ]}

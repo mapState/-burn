@@ -1,9 +1,9 @@
 <template>
 	<view class="main">
 		<view class="list">
-			<view class="listItem" v-for="(item,index) in 7" :key="index" @click="goDetail">
-				<image src="https://hbimg.huabanimg.com/2bac7cba175d1c0320058ab26584669c9f3a2c14613dd-5EeetP_fw658/format/webp" mode="aspectFill" class="listImg"></image>
-				<view class="listItemText">东路财神</view>
+			<view class="listItem" v-for="item in list" :key="item.id" @click="goDetail(item)">
+				<image :src="item.main_image" mode="aspectFill" class="listImg"></image>
+				<view class="listItemText">{{item.name}}</view>
 			</view>
 		</view>
 	</view>
@@ -13,13 +13,36 @@
 	export default {
 		data() {
 			return {
-				
+				list:[],
+				limit:10,
+				page:1
 			}
 		},
+		onLoad() {
+			this.getList()
+		},
+		onReachBottom(){
+			this.getList()
+		},
 		methods: {
-			goDetail(){
+			goDetail(info){
+				console.log(info)
+				info.content=encodeURIComponent(info.content)
 				uni.navigateTo({
-					url:"/pages/dojoDetail/dojoDetail?id=1"
+					url:"/pages/dojoDetail/dojoDetail?detail="+JSON.stringify(info)
+				})
+			},
+			getList(){
+				this.$api.get('/api/dojo',{
+					params:{
+						limit:this.limit,
+						page:this.page
+					}
+				}).then((res)=>{
+					if(res.data.length>0){
+						this.list=this.list.concat(res.data)
+						this.page++
+					}
 				})
 			}
 		}

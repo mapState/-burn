@@ -53,7 +53,7 @@
 	width:532rpx;
 	height:82rpx;
 	font-size:38rpx;
-	font-family:書體坊顏體㊣;
+	font-family:'book';
 	font-weight:400;
 	color:rgba(147,92,65,1);
 }
@@ -113,7 +113,7 @@
 .t2{
 	width:627rpx;
 	font-size:30rpx;
-	font-family:書體坊顏體㊣;
+	font-family:'book';
 	font-weight:400;
 	color:rgba(147,92,65,1);
 	margin-bottom: 29rpx;
@@ -166,7 +166,8 @@
 	width:610rpx;
 	height:434rpx;
 	background:rgba(253,240,214,1);
-	border-radius:6rpx;
+	-webkit-border-radius:6rpx;
+	        border-radius:6rpx;
 }
 .countdownTop{
 	width:100%;
@@ -185,7 +186,7 @@
 }
 .countdownTopText{
 	font-size:38rpx;
-	font-family:書體坊顏體㊣;
+	font-family:'book';
 	font-weight:400;
 	color:rgba(147,92,65,1);
 }
@@ -197,13 +198,13 @@
 }
 .timeNum{
 	font-size:150rpx;
-	font-family:書體坊顏體㊣;
+	font-family:'book';
 }
 .closeBox{
 	position: absolute;
 	width:44rpx;
 	top:-70rpx;
-	right:34rpx;
+	right:30rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;

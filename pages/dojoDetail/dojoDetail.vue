@@ -6,7 +6,7 @@
 		<image src="../../static/tmp/x1.png" mode="widthFix" class="topImg"></image>
 		<view class="detail">
 			<view class="dTitle">
-				<text class="dTitleTxt">东路财神招宝天尊庇佑大家心想事成</text>
+				<text class="dTitleTxt">{{detail.info||detail.name}}</text>
 			</view>
 			<view class="eightBox">
 				<text class="t1">匹配本命财神道场</text>
@@ -14,7 +14,8 @@
 				<image src="../../static/tmp/eg.png" mode="aspectFill" class="egImg"></image>
 			</view>
 			<view class="t2">
-				财神共有五个方位，每个方位都有一只龙五爷的眼睛，佛家称之为“五眼”，即肉眼、天眼、法眼、慧眼和佛眼。五眼，观五行：金木水火土；审五蕴：色受想行识。大殿还立有八根财柱，分别代表龙五爷开示众生如何正当求财的八大法门，信众依据法门开示，树立正确的财富观，就能求财如意。
+				<rich-text :nodes="detail.content"></rich-text>
+				<!-- 财神共有五个方位，每个方位都有一只龙五爷的眼睛，佛家称之为“五眼”，即肉眼、天眼、法眼、慧眼和佛眼。五眼，观五行：金木水火土；审五蕴：色受想行识。大殿还立有八根财柱，分别代表龙五爷开示众生如何正当求财的八大法门，信众依据法门开示，树立正确的财富观，就能求财如意。 -->
 			</view>
 			<image src="../../static/tmp/gossip.png" mode="aspectFill" class="godImg"></image>
 			<view class="btnBox">
@@ -51,12 +52,16 @@
 			return {
 				time:6,
 				timer:null,
-				top:32
+				top:32,
+				detail:{}
 			}
 		},
-		onLoad(option) {
+		onLoad(params) {
 			this.top=uni.getMenuButtonBoundingClientRect().top
-			console.log(this.top)
+			let detail=JSON.parse(params.detail)
+			detail.content=decodeURIComponent(detail.content)
+			this.detail=detail
+			console.log(this.detail)
 		},
 		onUnload(){
 			this.timer&&clearTimeout(this.timer)
@@ -133,7 +138,7 @@
 		width:532rpx;
 		height:82rpx;
 		font-size:38rpx;
-		font-family:書體坊顏體㊣;
+		font-family:'book';
 		font-weight:400;
 		color:rgba(147,92,65,1);
 	}
@@ -184,7 +189,7 @@
 	.t2{
 		width:627rpx;
 		font-size:30rpx;
-		font-family:書體坊顏體㊣;
+		font-family:'book';
 		font-weight:400;
 		color:rgba(147,92,65,1);
 		margin-bottom: 29rpx;
@@ -245,7 +250,7 @@
 	}
 	.countdownTopText{
 		font-size:38rpx;
-		font-family:書體坊顏體㊣;
+		font-family:'book';
 		font-weight:400;
 		color:rgba(147,92,65,1);
 	}
@@ -257,13 +262,13 @@
 	}
 	.timeNum{
 		font-size:150rpx;
-		font-family:書體坊顏體㊣;
+		font-family:'book';
 	}
 	.closeBox{
 		position: absolute;
 		width:44rpx;
 		top:-70rpx;
-		right:34rpx;
+		right:30rpx;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
