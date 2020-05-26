@@ -27,9 +27,10 @@
 		methods: {
 			goDetail(info){
 				console.log(info)
-				info.content=encodeURIComponent(info.content)
+				let detail={...info}
+				detail.content=encodeURIComponent(detail.content)
 				uni.navigateTo({
-					url:"/pages/dojoDetail/dojoDetail?detail="+JSON.stringify(info)
+					url:"/pages/dojoDetail/dojoDetail?detail="+JSON.stringify(detail)
 				})
 			},
 			getList(){

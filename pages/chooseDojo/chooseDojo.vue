@@ -109,7 +109,7 @@
 		<view class="btnBox">
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
 			<text class="btnTxt" @click="goMatch">匹配本命财神道场</text>
-			<!-- <button open-type="getUserInfo" @getuserinfo="getUserInfo" class="getUserBtn"></button> -->
+			<button open-type="getUserInfo" @getuserinfo="getUserInfo" class="getUserBtn"></button>
 		</view>
 	</view>
 </template>
@@ -130,6 +130,12 @@
 						this.selIdList.forEach((item)=>{
 							wishList.push(this.textList[item])
 						})
+					}else{
+						uni.showToast({
+							title:"至少选择一项",
+							icon:'none'
+						})
+						return
 					}
 					console.log(wishList)
 				    uni.setStorage({
@@ -147,37 +153,13 @@
 			},
 			getUserInfo(info) {
 				console.log(info);
-				return
 				if (info.detail.userInfo) {
 				  console.log("点击了同意授权");
 				  wx.login({
 					success: (res)=>{
+						console.log(res)
 					  if (res.code) {
-						wx.request({
-						  url: 'https://app.movetechy.com/login/sign',
-						  data: {
-							code: res.code,
-							rawData:info.detail.rawData
-						  },
-						  header: {
-							'content-type': 'application/json' // 默认值
-						  },
-						  success: (result)=>{
-							console.log(result)
-							if(result.statusCode==200&&result.data.code==0){
-								let token=result.data.token
-								uni.setStorageSync('token',token);
-								this.getInfo(token)
-							}else{
-								uni.showToast({
-									title:result.data.msg,
-									icon:"none",
-									duration:600
-								})
-							}
-							
-						  }
-						})
+						//request this.$api.post
 					  } else {
 						console.log("授权失败");
 					  }

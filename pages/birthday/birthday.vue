@@ -87,9 +87,10 @@
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
 			<text class="btnText">确定</text>
 		</view>
-		<view class="btnBox" @click="goMatchDojo" v-if="step==4">
+		<view class="btnBox" v-if="step==4">
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
-			<text class="btnText">开始匹配本命财神道场</text>
+			<text class="btnText" @click="goMatchDojo">开始匹配本命财神道场</text>
+			<button class="getPhoneBtn" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber"></button>
 		</view>
 		<!-- 日历组件 -->
 		<zan-calendar
@@ -144,7 +145,8 @@
 				nameForom:{
 					surname:'',
 					name:''
-				}
+				},
+				birthday:''
 			}
 		},
 		computed:{
@@ -167,9 +169,54 @@
 			});
 		},
 		methods: {
+		  // 获取手机号码
+		  getPhoneNumber: function (e) {
+			console.log(e)
+			if (e.detail.errMsg == 'getPhoneNumber:fail') {
+			  console.log(ErrMsg);
+			  uni.showToast({
+			      title: '未获取到手机号码',
+			      icon:'none'
+			  });
+			  return false;
+			} else if (e.detail.iv == undefined || !e.detail.iv) {
+			  uni.showToast({
+			      title: '授权失败',
+			      icon:'none'
+			  });
+			  return false;
+			} else {
+				// 解密手机号接口
+				 wx.login({
+					success: (res) => {
+					  if (res.code) {
+						console.log(res)
+						// this.$api.post('',{
+							
+						// })
+					  }
+					},
+				})
+			}
+		  },
 			goMatchDojo(){
-				uni.redirectTo({
-					url:'/pages/matchDojo/matchDojo'
+				// uni.redirectTo({
+				// 	url:'/pages/matchDojo/matchDojo'
+				// })
+				let birthdate=this.type==0?'阳历':'阴历'
+				let birthday
+				this.$api.post('/api/prayer',{
+					heart_want:this.wishList,
+					birthdate,
+					birthday:this.birthday,
+					sex:this.sexIndex==0?1:0,
+					birthplace:this.region[2].code,
+					nowplace:this.region1[2].code,
+					surname:this.nameForom.surname,
+					name:this.nameForom.name,
+					user_id:33
+				}).then((res)=>{
+					console.log(res)
 				})
 			},
 			//选择性别
@@ -236,6 +283,11 @@
 				this.endDate=str
 				console.log("选择的日期是：" + e.date);
 				console.log("选择的时间是：" + e.time);
+				let a = e.time.split('-')
+				let f = a[0]-0
+				let endF = f<10?('0'+f+':'+'00:00'):(f+':00:00')
+				this.birthday=e.date+' '+endF
+				console.log(this.birthday)
 				this.closeDialog()
 			},
 			// 获取选择的地区
@@ -399,6 +451,14 @@
 		width:564rpx;
 		height:81rpx;
 		margin-top: 116rpx;
+	}
+	.getPhoneBtn{
+		position: absolute;
+		left:0;
+		top:0;
+		width:100%;
+		height: 100%;
+		opacity: 0;
 	}
 	.btnImg{
 		width:100%;

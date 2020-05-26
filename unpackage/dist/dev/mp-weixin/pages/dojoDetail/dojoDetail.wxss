@@ -166,7 +166,8 @@
 	width:610rpx;
 	height:434rpx;
 	background:rgba(253,240,214,1);
-	border-radius:6rpx;
+	-webkit-border-radius:6rpx;
+	        border-radius:6rpx;
 }
 .countdownTop{
 	width:100%;
