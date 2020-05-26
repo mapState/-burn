@@ -1,59 +1,58 @@
 {
-	"description": "项目配置文件。",
-	"packOptions": {
-		"ignore": []
-	},
-	"setting": {
-		"urlCheck": false
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.9.2",
-	"appid": "wxe38308656658eec0",
-	"projectname": "fo",
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"current": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": 1,
-			"list": [
-				{
-					"name": "dojoDetail",
-					"id": 0,
-					"pathName": "pages/dojoDetail/dojoDetail"
-				},
-				{
-					"name": "chooseDojo",
-					"id": 1,
-					"pathName": "pages/chooseDojo/chooseDojo"
-				},
-				{
-					"name": "birthday",
-					"id": 2,
-					"pathName": "pages/birthday/birthday"
-				},
-				{
-					"name": "matchDojo",
-					"id": 3,
-					"pathName": "pages/matchDojo/matchDojo"
-				},
-				{
-					"name": "package",
-					"id": 4,
-					"pathName": "pages/package/package"
-				}
-			]
-		}
-	}
+  "description": "项目配置文件。",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "minified": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.9.2",
+  "appid": "wx2d49400e53aae68d",
+  "projectname": "fo",
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "current": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": 1,
+      "list": [
+        {
+          "name": "dojoDetail",
+          "id": 0,
+          "pathName": "pages/dojoDetail/dojoDetail"
+        },
+        {
+          "name": "chooseDojo",
+          "id": 1,
+          "pathName": "pages/chooseDojo/chooseDojo"
+        },
+        {
+          "name": "birthday",
+          "id": 2,
+          "pathName": "pages/birthday/birthday"
+        },
+        {
+          "name": "matchDojo",
+          "id": 3,
+          "pathName": "pages/matchDojo/matchDojo"
+        },
+        {
+          "name": "package",
+          "id": 4,
+          "pathName": "pages/package/package"
+        }
+      ]
+    }
+  }
 }

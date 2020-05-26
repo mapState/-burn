@@ -109,7 +109,7 @@
 		<view class="btnBox">
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
 			<text class="btnTxt" @click="goMatch">匹配本命财神道场</text>
-			<button open-type="getUserInfo" @getuserinfo="getUserInfo" class="getUserBtn"></button>
+			<button open-type="getUserInfo" @getuserinfo="getUserInfo" class="getUserBtn" v-if="!hasToken"></button>
 		</view>
 	</view>
 </template>
@@ -119,8 +119,15 @@
 		data() {
 			return {
 				textList:['财源滚滚','步步高升','一夜暴富','每赌必赢','逢凶化吉','业绩长虹','生意兴隆','贵人相助'],
-				selIdList:[]
+				selIdList:[],
+				hasToken:false
 			}
+		},
+		onLoad() {
+			
+		},
+		onShow() {
+			this.hasToken=uni.getStorageSync('token')?true:false
 		},
 		methods: {
 			goMatch(){
@@ -159,7 +166,26 @@
 					success: (res)=>{
 						console.log(res)
 					  if (res.code) {
-						//request this.$api.post
+						this.$api.post('/api/user/login',{
+							code:res.code
+						}).then((res)=>{
+							console.log(res)
+							if(res.token){
+								this.hasToken=true
+							}else{
+								return
+							}
+							uni.setStorageSync('token',res.token)
+							uni.setStorageSync('user_id',res.user_id)
+							this.goMatch()
+							// uni.setStorage({
+							//     key: 'user_id',
+							//     data: res.user_id,
+							//     success:()=>{
+							// 		console.log('user_id set success')
+							//     }
+							// });
+						})
 					  } else {
 						console.log("授权失败");
 					  }
@@ -196,7 +222,7 @@
 	}
 	.title{
 		font-size:58rpx;
-		font-family:书体坊颜体?;
+		font-family:'book';
 		font-weight:400;
 		color:rgba(147,92,65,1);
 	}
@@ -303,7 +329,7 @@
 	}
 	.tip{
 		font-size:36rpx;
-		font-family:书体坊颜体?;
+		font-family:'book';
 		font-weight:400;
 		color:rgba(154,57,46,1);
 		margin-top: 107rpx;
@@ -328,7 +354,7 @@
 		left: 50%;
 		transform: translate(-50%,-50%);
 		font-size:45rpx;
-		font-family:书体坊颜体?;
+		font-family:'book';
 		font-weight:400;
 		color:rgba(220,198,177,1);
 	}

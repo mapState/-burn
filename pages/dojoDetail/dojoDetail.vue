@@ -18,7 +18,7 @@
 				<!-- 财神共有五个方位，每个方位都有一只龙五爷的眼睛，佛家称之为“五眼”，即肉眼、天眼、法眼、慧眼和佛眼。五眼，观五行：金木水火土；审五蕴：色受想行识。大殿还立有八根财柱，分别代表龙五爷开示众生如何正当求财的八大法门，信众依据法门开示，树立正确的财富观，就能求财如意。 -->
 			</view>
 			<image src="../../static/tmp/gossip.png" mode="aspectFill" class="godImg"></image>
-			<view class="btnBox">
+			<view class="btnBox" v-if="showBtn">
 				<image src="../../static/img/btn.png" class="btnImg" mode="aspectFill"></image>
 				<view class="btnText" @click="open">
 					立即供奉
@@ -53,10 +53,14 @@
 				time:6,
 				timer:null,
 				top:32,
-				detail:{}
+				detail:{},
+				showBtn:false
 			}
 		},
 		onLoad(params) {
+			if(params.type){
+				this.showBtn=true
+			}
 			this.top=uni.getMenuButtonBoundingClientRect().top
 			let detail=JSON.parse(params.detail)
 			detail.content=decodeURIComponent(detail.content)
@@ -67,6 +71,12 @@
 			this.timer&&clearTimeout(this.timer)
 		},
 		methods: {
+			//供奉
+			goWorship(){
+				uni.navigateTo({
+					url:'/pages/package/package?detail='+JSON.stringify(this.detail)
+				})
+			},
 			goBack(){
 				uni.navigateBack({
 				    delta: 1
@@ -86,6 +96,7 @@
 			      if(this.time <= 0){
 			         clearTimeout(this.timer);
 					 this.$refs.popup.close()
+					 this.goWorship()
 			         return
 			      }
 			      this.timer=setTimeout(this.countdown,1000);

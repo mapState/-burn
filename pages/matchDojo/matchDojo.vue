@@ -7,16 +7,15 @@
 		</view>
 		<text class="wantTitle">***,您祈求之福报为</text>
 		<view class="wantList">
-			<text class="wantItem">1</text>
-			<text class="wantItem">1</text>
-			<text class="wantItem">1</text>
+			<text class="wantItem" v-for="(item,index) in wishList" :key="item">{{item}}</text>
 		</view>
-		<text class="wantTitle">您的本命道神场是</text>
-		<view class="natal">
-			
-		</view>
-		<text class="hz">杭州福星观</text>
-		<text class="hz">东方招宝天尊道场</text>
+		<text class="wantTitle">您的本命道场是</text>
+		<image :src="detail.main_image" mode="widthFix" class="mainImg"></image>
+		<!-- <view class="natal">
+				
+		</view> -->
+		<text class="hz">{{detail.name}}</text>
+		<text class="hz">{{detail.info}}</text>
 		<view class="btnBox" @click="goDojoDetail">
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
 			<text class="btnText">立即前往</text>
@@ -28,13 +27,26 @@
 	export default {
 		data() {
 			return {
-				
+				detail:{},
+				wishList:[]
 			}
+		},
+		onLoad(params) {
+			uni.getStorage({
+			    key: 'wishList',
+			    success: (res)=>{
+					console.log(res.data)
+			        this.wishList=res.data||[]
+			    }
+			});
+			this.detail=JSON.parse(params.detail)
 		},
 		methods: {
 			goDojoDetail(){
+				let detail={...this.detail}
+				detail.content=encodeURIComponent(detail.content)
 				uni.navigateTo({
-					url:"/pages/dojoDetail/dojoDetail"
+					url:"/pages/dojoDetail/dojoDetail?type=1&&detail="+JSON.stringify(this.detail)
 				})
 			}
 		}
@@ -88,6 +100,11 @@
 		padding-left: 80rpx;
 		box-sizing: border-box;
 	}
+	.mainImg{
+		width:603rpx;
+		height: auto;
+		margin-bottom:10rpx;
+	}
 	.wantList{
 		width:100%;
 		box-sizing: border-box;
@@ -105,11 +122,11 @@
 		margin-right: 14rpx;;
 		text-align: center;
 		line-height: 83rpx;
+		color: #9A392E;
 	}
 	.natal{
 		width:603rpx;
 		height: 340rpx;
-		background-color: #D1C0A5;
 		margin-top: 17rpx;
 		margin-bottom: 30rpx;
 	}
@@ -123,7 +140,7 @@
 		position: relative;
 		width:574rpx;
 		height:89rpx;
-		margin-top: 48rpx;
+		margin: 48rpx 0;
 	}
 	.btnImg{
 		width:100%;

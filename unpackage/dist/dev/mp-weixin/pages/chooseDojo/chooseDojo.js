@@ -274,8 +274,15 @@ var _default =
   data: function data() {
     return {
       textList: ['财源滚滚', '步步高升', '一夜暴富', '每赌必赢', '逢凶化吉', '业绩长虹', '生意兴隆', '贵人相助'],
-      selIdList: [] };
+      selIdList: [],
+      hasToken: false };
 
+  },
+  onLoad: function onLoad() {
+
+  },
+  onShow: function onShow() {
+    this.hasToken = uni.getStorageSync('token') ? true : false;
   },
   methods: {
     goMatch: function goMatch() {var _this = this;
@@ -306,7 +313,7 @@ var _default =
         // error
       }
     },
-    getUserInfo: function getUserInfo(info) {
+    getUserInfo: function getUserInfo(info) {var _this2 = this;
       console.log(info);
       if (info.detail.userInfo) {
         console.log("点击了同意授权");
@@ -314,7 +321,26 @@ var _default =
           success: function success(res) {
             console.log(res);
             if (res.code) {
-              //request this.$api.post
+              _this2.$api.post('/api/user/login', {
+                code: res.code }).
+              then(function (res) {
+                console.log(res);
+                if (res.token) {
+                  _this2.hasToken = true;
+                } else {
+                  return;
+                }
+                uni.setStorageSync('token', res.token);
+                uni.setStorageSync('user_id', res.user_id);
+                _this2.goMatch();
+                // uni.setStorage({
+                //     key: 'user_id',
+                //     data: res.user_id,
+                //     success:()=>{
+                // 		console.log('user_id set success')
+                //     }
+                // });
+              });
             } else {
               console.log("授权失败");
             }

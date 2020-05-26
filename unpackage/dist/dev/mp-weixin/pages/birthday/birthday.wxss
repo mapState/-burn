@@ -75,6 +75,7 @@ page{
 	text-align: center;
 	line-height: 82rpx;
 	margin-right: 14rpx;
+	color: #9A392E;
 }
 .selBox{
 	width:100%;

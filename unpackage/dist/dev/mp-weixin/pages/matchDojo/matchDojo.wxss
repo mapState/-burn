@@ -47,6 +47,11 @@ page{
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
 }
+.mainImg{
+	width:603rpx;
+	height: auto;
+	margin-bottom:10rpx;
+}
 .wantList{
 	width:100%;
 	-webkit-box-sizing: border-box;
@@ -67,11 +72,11 @@ page{
 	margin-right: 14rpx;
 	text-align: center;
 	line-height: 83rpx;
+	color: #9A392E;
 }
 .natal{
 	width:603rpx;
 	height: 340rpx;
-	background-color: #D1C0A5;
 	margin-top: 17rpx;
 	margin-bottom: 30rpx;
 }
@@ -85,7 +90,7 @@ page{
 	position: relative;
 	width:574rpx;
 	height:89rpx;
-	margin-top: 48rpx;
+	margin: 48rpx 0;
 }
 .btnImg{
 	width:100%;

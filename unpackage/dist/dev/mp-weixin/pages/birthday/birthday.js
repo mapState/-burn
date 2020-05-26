@@ -295,7 +295,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.region1.map(function (item) {return item.name;}).join(' ');
     } },
 
-  onLoad: function onLoad() {var _this = this;
+  onLoad: function onLoad(params) {var _this = this;
     uni.getStorage({
       key: 'wishList',
       success: function success(res) {
@@ -336,23 +336,29 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     goMatchDojo: function goMatchDojo() {
-      // uni.redirectTo({
-      // 	url:'/pages/matchDojo/matchDojo'
-      // })
-      var birthdate = this.type == 0 ? '阳历' : '阴历';
-      var birthday;
+      if (this.nameForom.name == '' || this.nameForom.surname == '') {
+        uni.showToast({
+          title: '姓氏名讳不能为空',
+          icon: 'none' });
+
+        return;
+      }
       this.$api.post('/api/prayer', {
-        heart_want: this.wishList,
-        birthdate: birthdate,
+        heart_want: JSON.stringify(this.wishList),
+        birthdate: this.type == 0 ? '阳历' : '阴历',
         birthday: this.birthday,
         sex: this.sexIndex == 0 ? 1 : 0,
         birthplace: this.region[2].code,
         nowplace: this.region1[2].code,
         surname: this.nameForom.surname,
         name: this.nameForom.name,
-        user_id: 33 }).
+        user_id: uni.getStorageSync('user_id') }).
       then(function (res) {
         console.log(res);
+        uni.setStorageSync('paryData', res.prayer);
+        uni.redirectTo({
+          url: '/pages/matchDojo/matchDojo?detail=' + JSON.stringify(res.dojo) });
+
       });
     },
     //选择性别
@@ -370,7 +376,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     submit: function submit() {
       console.log(this.form);
-      if (this.step == 4) {
+      if (this.step == 1) {
+        if (this.birthday == '') {
+          uni.showToast({
+            title: '请选择生辰',
+            icon: 'none' });
+
+          return;
+        }
+      } else if (this.step == 3) {
+        if (this.region.length <= 0 || this.region1.length <= 0) {
+          uni.showToast({
+            title: '请选择方位',
+            icon: 'none' });
+
+          return;
+        }
+      } else if (this.step == 4) {
         return;
       }
       this.step++;
@@ -413,17 +435,19 @@ __webpack_require__.r(__webpack_exports__);
       var str = '';
       if (e.type == 0) {
         str = '阳历:' + e.t1;
+        this.birthday = e.t1;
       } else {
         str = '阴历:' + e.t2;
+        this.birthday = e.t2;
       }
       this.endDate = str;
       console.log("选择的日期是：" + e.date);
       console.log("选择的时间是：" + e.time);
-      var a = e.time.split('-');
-      var f = a[0] - 0;
-      var endF = f < 10 ? '0' + f + ':' + '00:00' : f + ':00:00';
-      this.birthday = e.date + ' ' + endF;
-      console.log(this.birthday);
+      // let a = e.time.split('-')
+      // let f = a[0]-0
+      // let endF = f<10?('0'+f+':'+'00:00'):(f+':00:00')
+      // this.birthday=e.date+' '+endF
+      // console.log(this.birthday)
       this.closeDialog();
     },
     // 获取选择的地区

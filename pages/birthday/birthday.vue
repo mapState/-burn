@@ -90,7 +90,7 @@
 		<view class="btnBox" v-if="step==4">
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
 			<text class="btnText" @click="goMatchDojo">开始匹配本命财神道场</text>
-			<button class="getPhoneBtn" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber"></button>
+			<!-- <button class="getPhoneBtn" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber"></button> -->
 		</view>
 		<!-- 日历组件 -->
 		<zan-calendar
@@ -159,7 +159,7 @@
 				return this.region1.map(item=>item.name).join(' ')
 			}
 		},
-		onLoad() {
+		onLoad(params) {
 			uni.getStorage({
 			    key: 'wishList',
 			    success: (res)=>{
@@ -200,23 +200,29 @@
 			}
 		  },
 			goMatchDojo(){
-				// uni.redirectTo({
-				// 	url:'/pages/matchDojo/matchDojo'
-				// })
-				let birthdate=this.type==0?'阳历':'阴历'
-				let birthday
+				if(this.nameForom.name==''||this.nameForom.surname==''){
+					uni.showToast({
+					    title: '姓氏名讳不能为空',
+					    icon:'none'
+					});
+					return
+				}
 				this.$api.post('/api/prayer',{
-					heart_want:this.wishList,
-					birthdate,
+					heart_want:JSON.stringify(this.wishList),
+					birthdate:this.type==0?'阳历':'阴历',
 					birthday:this.birthday,
 					sex:this.sexIndex==0?1:0,
 					birthplace:this.region[2].code,
 					nowplace:this.region1[2].code,
 					surname:this.nameForom.surname,
 					name:this.nameForom.name,
-					user_id:33
+					user_id:uni.getStorageSync('user_id')
 				}).then((res)=>{
 					console.log(res)
+					uni.setStorageSync('paryData',res.prayer)
+					uni.redirectTo({
+						url:'/pages/matchDojo/matchDojo?detail='+JSON.stringify(res.dojo)
+					})
 				})
 			},
 			//选择性别
@@ -234,7 +240,23 @@
 			},
 			submit(){
 				console.log(this.form)
-				if(this.step==4){
+				if(this.step==1){
+					if(this.birthday==''){
+						uni.showToast({
+							title:'请选择生辰',
+							icon:'none'
+						})
+						return
+					}
+				}else if(this.step==3){
+					if(this.region.length<=0||this.region1.length<=0){
+						uni.showToast({
+							title:'请选择方位',
+							icon:'none'
+						})
+						return
+					}
+				}else if(this.step==4){
 					return
 				}
 				this.step++
@@ -277,17 +299,19 @@
 				let str=''
 				if(e.type==0){
 					str='阳历:'+e.t1
+					this.birthday=e.t1
 				}else{
 					str='阴历:'+e.t2
+					this.birthday=e.t2
 				}
 				this.endDate=str
 				console.log("选择的日期是：" + e.date);
 				console.log("选择的时间是：" + e.time);
-				let a = e.time.split('-')
-				let f = a[0]-0
-				let endF = f<10?('0'+f+':'+'00:00'):(f+':00:00')
-				this.birthday=e.date+' '+endF
-				console.log(this.birthday)
+				// let a = e.time.split('-')
+				// let f = a[0]-0
+				// let endF = f<10?('0'+f+':'+'00:00'):(f+':00:00')
+				// this.birthday=e.date+' '+endF
+				// console.log(this.birthday)
 				this.closeDialog()
 			},
 			// 获取选择的地区
@@ -371,6 +395,7 @@
 		text-align: center;
 		line-height: 82rpx;
 		margin-right: 14rpx;
+		color: #9A392E;
 	}
 	.selBox{
 		width:100%;

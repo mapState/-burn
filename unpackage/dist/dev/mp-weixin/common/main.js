@@ -12,7 +12,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 5));
 
 var _uniRequest = _interopRequireDefault(__webpack_require__(/*! uni-request */ 8));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 _uniRequest.default.defaults.baseURL = 'http://121.40.141.26';
-// uniRequest.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+_uniRequest.default.defaults.headers.common['Authorization'] = 'Bearer ' + uni.getStorageSync('token') || false;
 _uniRequest.default.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // 请求拦截
 // uniRequest.interceptors.request.use(
@@ -34,32 +34,19 @@ _uniRequest.default.defaults.headers.post['Content-Type'] = 'application/x-www-f
 
 //响应拦截
 _uniRequest.default.interceptors.response.use(function (response) {
-  //console.log(response)
-  //console.log('返回进入拦截成功')
   if (response.status == 200 && response.data.code === 200) {
     return Promise.resolve(response.data.data);
-  } else if (response.data.code == 500) {
-    uni.showToast({
-      title: response.data.msg,
-      icon: "none",
-      duration: 1200 });
-
-    uni.removeStorageSync('token');
-    uni.removeStorageSync('userInfo');
-    return Promise.reject(response.data.data);
-    //重新登录
   } else {
     uni.showToast({
-      title: response.data.msg,
-      icon: "none",
-      duration: 1200 });
+      title: response.data.message,
+      icon: "none" });
 
     return Promise.reject(response.data.data);
   }
 }, function (error) {
   uni.hideLoading();
   uni.showLoading({
-    title: '网络连接中',
+    title: '网络故障...',
     mask: "true" });
 
   //console.log('返回进入拦截失败')

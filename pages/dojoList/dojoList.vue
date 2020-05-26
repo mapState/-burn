@@ -2,7 +2,7 @@
 	<view class="main">
 		<view class="list">
 			<view class="listItem" v-for="item in list" :key="item.id" @click="goDetail(item)">
-				<image :src="item.main_image" mode="aspectFill" class="listImg"></image>
+				<image :src="item.main_image" mode="widthFix" class="listImg"></image>
 				<view class="listItemText">{{item.name}}</view>
 			</view>
 		</view>
@@ -40,6 +40,7 @@
 						page:this.page
 					}
 				}).then((res)=>{
+					console.log(res)
 					if(res.data.length>0){
 						this.list=this.list.concat(res.data)
 						this.page++
@@ -65,7 +66,7 @@
 	.listImg{
 		width:324rpx;
 		height:431rpx;
-		border-radius:10px;
+		border-radius:10rpx;
 		margin-bottom: 26rpx;
 	}
 	.listItemText{

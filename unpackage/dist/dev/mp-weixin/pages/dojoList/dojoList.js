@@ -172,6 +172,7 @@ var _default =
           page: this.page } }).
 
       then(function (res) {
+        console.log(res);
         if (res.data.length > 0) {
           _this.list = _this.list.concat(res.data);
           _this.page++;

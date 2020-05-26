@@ -189,10 +189,14 @@ __webpack_require__.r(__webpack_exports__);
       time: 6,
       timer: null,
       top: 32,
-      detail: {} };
+      detail: {},
+      showBtn: false };
 
   },
   onLoad: function onLoad(params) {
+    if (params.type) {
+      this.showBtn = true;
+    }
     this.top = uni.getMenuButtonBoundingClientRect().top;
     var detail = JSON.parse(params.detail);
     detail.content = decodeURIComponent(detail.content);
@@ -203,6 +207,12 @@ __webpack_require__.r(__webpack_exports__);
     this.timer && clearTimeout(this.timer);
   },
   methods: {
+    //供奉
+    goWorship: function goWorship() {
+      uni.navigateTo({
+        url: '/pages/package/package?detail=' + JSON.stringify(this.detail) });
+
+    },
     goBack: function goBack() {
       uni.navigateBack({
         delta: 1 });
@@ -222,6 +232,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.time <= 0) {
         clearTimeout(this.timer);
         this.$refs.popup.close();
+        this.goWorship();
         return;
       }
       this.timer = setTimeout(this.countdown, 1000);

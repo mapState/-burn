@@ -215,20 +215,33 @@ __webpack_require__.r(__webpack_exports__);
   components: { uniPopup: uniPopup },
   data: function data() {
     return {
+      limit: 10,
+      page: 1,
       leftTitle: '庇佑小熊心想事成',
       rightTitle: '西路财神纳珍天尊',
-      imgUrl: 'https://hbimg.huabanimg.com/e04f105aa837092b525b5ec2da63d97f1ef578bc232032-FvS1oF_fw658/format/webp',
-      status: 1, //0需要氪金了 1氪金cd中
+      imgUrl: 'http://121.40.141.26/upload/images/20200525/e one.png',
+      status: 0, //0需要氪金了 1氪金cd中
       tmpImg: '',
       width: 452,
       height: 650,
       pixelRatio: 2,
       bgPath: '/static/tmp/pbg.png', //底板
       codePath: '/static/tmp/eg.png', //小程序码
-      god: '/static/tmp/x2.png' };
+      god: '/static/tmp/x2.png',
+      shareInfo: {
+        title: '',
+        poser: '' },
 
+      packageList: [],
+      detail: {} //道场详情
+    };
   },
-  onLoad: function onLoad() {var _this = this;
+  computed: {
+    bgImage: function bgImage() {
+      return 'url(' + this.imgUrl + ')';
+    } },
+
+  onLoad: function onLoad(params) {var _this = this;
     wx.getSystemInfo({
       success: function success(res) {
         // 通过像素比计算出画布的实际大小（330x490）是展示的出来的大小
@@ -238,6 +251,9 @@ __webpack_require__.r(__webpack_exports__);
       } });
 
     this.getShareInfo();
+    this.getPackage();
+    this.detail = JSON.parse(params.detail);
+    //this.imgUrl=this.detail.pay_image
     //this.open()
   },
   onShareAppMessage: function onShareAppMessage(res) {
@@ -245,21 +261,35 @@ __webpack_require__.r(__webpack_exports__);
       console.log(res.target);
     }
     return {
-      title: 'hhh',
+      title: this.shareInfo.title,
       path: '/pages/index/index' };
 
   },
   methods: {
-    getShareInfo: function getShareInfo() {
+    //获取套餐
+    getPackage: function getPackage() {var _this2 = this;
+      this.$api.get('/api/pray', {
+        params: {
+          limit: this.limit,
+          page: this.page } }).
+
+      then(function (res) {
+        console.log(res);
+        _this2.packageList = _this2.packageList.concat(res.data);
+      });
+    },
+    //获取分享配置
+    getShareInfo: function getShareInfo() {var _this3 = this;
       this.$api.get('/api/user/share').then(function (res) {
         console.log(res);
+        _this3.shareInfo = res;
       });
     },
     closePoser: function closePoser() {
       this.$refs.poster.close();
     },
     //生成海报
-    getPoster: function getPoster() {var _this2 = this;
+    getPoster: function getPoster() {var _this4 = this;
       this.$refs.share.close();
       var that = this;
       var context = wx.createCanvasContext('myCanvas');
@@ -270,11 +300,11 @@ __webpack_require__.r(__webpack_exports__);
         src: this.god,
         success: function success(res) {
           console.log(res);
-          context.drawImage(_this2.bgPath, 0, 0, _this2.width, _this2.height);
-          if (_this2.pixelRatio === 2) {
-            context.drawImage(_this2.god, 0, 0, 206 * _this2.pixelRatio, 159 * _this2.pixelRatio, 10 * _this2.pixelRatio, 51 * _this2.pixelRatio, 206 * _this2.pixelRatio, 159 * _this2.pixelRatio);
+          context.drawImage(_this4.bgPath, 0, 0, _this4.width, _this4.height);
+          if (_this4.pixelRatio === 2) {
+            context.drawImage(_this4.god, 0, 0, 206 * _this4.pixelRatio, 159 * _this4.pixelRatio, 10 * _this4.pixelRatio, 51 * _this4.pixelRatio, 206 * _this4.pixelRatio, 159 * _this4.pixelRatio);
           } else {
-            context.drawImage(_this2.god, 0, 0, 206 * _this2.pixelRatio, 159 * _this2.pixelRatio, 46 * _this2.pixelRatio, 51 * _this2.pixelRatio, 206 * _this2.pixelRatio, 159 * _this2.pixelRatio);
+            context.drawImage(_this4.god, 0, 0, 206 * _this4.pixelRatio, 159 * _this4.pixelRatio, 46 * _this4.pixelRatio, 51 * _this4.pixelRatio, 206 * _this4.pixelRatio, 159 * _this4.pixelRatio);
           }
           context.save();
           context.restore();
@@ -290,15 +320,15 @@ __webpack_require__.r(__webpack_exports__);
                   canvasId: 'myCanvas',
                   x: 0, //指定的画布区域的左上角横坐标	
                   y: 0, //指定的画布区域的左上角纵坐标	
-                  width: _this2.width, //指定的画布区域的宽度
-                  height: _this2.height, //指定的画布区域的高度
-                  destWidth: _this2.width, //输出的图片的宽度 
-                  destHeight: _this2.height, //输出的图片的高度
+                  width: _this4.width, //指定的画布区域的宽度
+                  height: _this4.height, //指定的画布区域的高度
+                  destWidth: _this4.width, //输出的图片的宽度 
+                  destHeight: _this4.height, //输出的图片的高度
                   success: function success(res) {
                     var tempFilePath = res.tempFilePath;
-                    _this2.tmpImg = tempFilePath;
+                    _this4.tmpImg = tempFilePath;
                     console.log(tempFilePath);
-                    _this2.$refs.poster.open();
+                    _this4.$refs.poster.open();
                   },
                   fail: function fail(res) {
                     console.log(res);
@@ -362,15 +392,18 @@ __webpack_require__.r(__webpack_exports__);
     close: function close() {
       this.$refs.popup.close();
     },
-    wxPay: function wxPay(totalfee) {
-      return;
+    wxPay: function wxPay(pray_id) {var _this5 = this;
       wx.login({
         success: function success(res) {
           if (res.code) {
-            axios.post('api/orderreward/wxPay', { token: token, himUserId: userId, topicId: topicId, totalfee: totalfee }).then(function (data) {
-              var info = data.data;
+            _this5.$api.post('/api/wechat/pay', {
+              dojo_id: _this5.detail.id,
+              pray_id: pray_id,
+              prayer_id: uni.getStorageSync('paryData').id }).
+            then(function (info) {
+              console.log(info);
               wx.requestPayment({
-                'appId': info.appid,
+                'appId': info.appId,
                 'timeStamp': info.timeStamp,
                 'nonceStr': info.nonceStr,
                 'package': info.package,

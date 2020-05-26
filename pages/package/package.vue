@@ -1,13 +1,13 @@
 <template>
-	<view class="main" :style="{backgroundImage:'url('+imgUrl+')'}">
+	<view class="main" :style="{backgroundImage:bgImage}">
 		<text class="leftTitle">{{leftTitle}}</text>
 		<text class="rightTitle">{{rightTitle}}</text>
 		<view class="packageList" v-if="status==0">
-			<view class="listItem" v-for="item in 4" :key="item" @click="wxPay(item)">
+			<view class="listItem" v-for="item in packageList" :key="item.id" @click="wxPay(item.id)">
 				<image src="../../static/img/btn.png" mode="scaleToFill" class="btnImg"></image>
 				<view class="itemContent">
-					<text>十日香油</text>
-					<text class="price">（8.88元）</text>
+					<text>{{item.name}}</text>
+					<text class="price">（{{item.price}}）</text>
 				</view>
 			</view>
 		</view>
@@ -79,20 +79,33 @@
 		components: {uniPopup},
 		data() {
 			return {
+				limit:10,
+				page:1,
 				leftTitle:'庇佑小熊心想事成',
 				rightTitle:'西路财神纳珍天尊',
-				imgUrl:'https://hbimg.huabanimg.com/e04f105aa837092b525b5ec2da63d97f1ef578bc232032-FvS1oF_fw658/format/webp',
-				status:1,//0需要氪金了 1氪金cd中
+				imgUrl:'http://121.40.141.26/upload/images/20200525/e one.png',
+				status:0,//0需要氪金了 1氪金cd中
 				tmpImg:'',
 				width:452,
 				height:650,
 				pixelRatio:2,
 				bgPath:'/static/tmp/pbg.png',//底板
 				codePath:'/static/tmp/eg.png',//小程序码
-				god:'/static/tmp/x2.png'
+				god:'/static/tmp/x2.png',
+				shareInfo:{
+					title:'',
+					poser:''
+				},
+				packageList:[],
+				detail:{},//道场详情
 			}
 		},
-		onLoad() {
+		computed:{
+			bgImage(){
+				return 'url('+ this.imgUrl +')'
+			}
+		},
+		onLoad(params) {
 			wx.getSystemInfo({
 			  success:(res)=>{
 				// 通过像素比计算出画布的实际大小（330x490）是展示的出来的大小
@@ -102,6 +115,9 @@
 			  }
 			})
 			this.getShareInfo()
+			this.getPackage()
+			this.detail=JSON.parse(params.detail)
+			//this.imgUrl=this.detail.pay_image
 			//this.open()
 		},
 		onShareAppMessage(res) {
@@ -109,14 +125,28 @@
 			  console.log(res.target)
 			}
 			return {
-			  title:'hhh',
+			  title:this.shareInfo.title,
 			  path: '/pages/index/index'
 			}
 		},
 		methods: {
+			//获取套餐
+			getPackage(){
+				this.$api.get('/api/pray',{
+					params:{
+						limit:this.limit,
+						page:this.page
+					}
+				}).then((res)=>{
+					console.log(res)
+					this.packageList=this.packageList.concat(res.data)
+				})
+			},
+			//获取分享配置
 			getShareInfo(){
 				this.$api.get('/api/user/share').then((res)=>{
 					console.log(res)
+					this.shareInfo=res
 				})
 			},
 			closePoser(){
@@ -226,15 +256,18 @@
 			close(){
 				this.$refs.popup.close()
 			},
-			wxPay(totalfee){
-				return
+			wxPay(pray_id){
 				wx.login({
 				  success:(res)=>{
 					if (res.code) {
-						axios.post('api/orderreward/wxPay',{token,himUserId:userId,topicId,totalfee}).then((data)=>{
-							var info=data.data;
+						this.$api.post('/api/wechat/pay',{
+							dojo_id:this.detail.id,
+							pray_id,
+							prayer_id:uni.getStorageSync('paryData').id
+						}).then((info)=>{
+							console.log(info)
 							wx.requestPayment({
-									'appId': info.appid,
+									'appId': info.appId,
 									'timeStamp': info.timeStamp,
 									'nonceStr': info.nonceStr,
 									'package': info.package,
