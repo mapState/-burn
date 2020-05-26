@@ -83,7 +83,7 @@
 				page:1,
 				leftTitle:'庇佑小熊心想事成',
 				rightTitle:'西路财神纳珍天尊',
-				imgUrl:'http://121.40.141.26/upload/images/20200525/e one.png',
+				imgUrl:'http://121.40.141.26/upload/images/20200525/e%20one.png',
 				status:0,//0需要氪金了 1氪金cd中
 				tmpImg:'',
 				width:452,
@@ -102,7 +102,7 @@
 		},
 		computed:{
 			bgImage(){
-				return 'url('+ this.imgUrl +')'
+				return `url(${this.imgUrl})`
 			}
 		},
 		onLoad(params) {

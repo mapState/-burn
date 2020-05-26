@@ -43,8 +43,7 @@ page{
 	width:183rpx;
 	height:51rpx;
 	background:rgba(154,57,46,1);
-	-webkit-border-radius:10rpx;
-	        border-radius:10rpx;
+	border-radius:10rpx;
 	font-size:36rpx;
 	font-family:'book';
 	font-weight:400;
@@ -56,8 +55,7 @@ page{
 }
 .wantList{
 	width:100%;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	padding-left:80rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -94,8 +92,7 @@ page{
 	text-align: center;
 	line-height: 51rpx;
 	background:rgba(154,57,46,1);
-	-webkit-border-radius:10rpx;
-	        border-radius:10rpx;
+	border-radius:10rpx;
 	font-size:36rpx;
 	font-family:'book';
 	font-weight:400;
@@ -119,8 +116,7 @@ page{
 	width:27rpx;
 	height:27rpx;
 	border:2rpx solid rgba(154,57,46,1);
-	-webkit-border-radius:50%;
-	        border-radius:50%;
+	border-radius:50%;
 	margin-right:21rpx;
 }
 .selRadio .radio::after{
@@ -134,8 +130,7 @@ page{
 	width:15rpx;
 	height:15rpx;
 	background:rgba(154,57,46,1);
-	-webkit-border-radius:50%;
-	        border-radius:50%;
+	border-radius:50%;
 }
 .radioTxt{
 	font-size:48rpx;
@@ -151,8 +146,7 @@ page{
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	        align-items: center;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	padding-left:69rpx;
 	margin-bottom: 10rpx;
 }
@@ -204,8 +198,7 @@ page{
 	width:457rpx;
 	height:81rpx;
 	border:2rpx solid rgba(126,107,90,1);
-	-webkit-border-radius:10rpx;
-	        border-radius:10rpx;
+	border-radius:10rpx;
 	margin-bottom: 49rpx;
 	text-align: center;
 	line-height: 81rpx;
@@ -236,8 +229,7 @@ page{
 .nameBox{
 	width:100%;
 	padding-left:69rpx;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -250,8 +242,7 @@ page{
 	width:183rpx;
 	height:51rpx;
 	background:rgba(154,57,46,1);
-	-webkit-border-radius:10rpx;
-	        border-radius:10rpx;
+	border-radius:10rpx;
 	font-size:36rpx;
 	font-family:'book';
 	font-weight:400;
@@ -263,8 +254,7 @@ page{
 	width:371rpx;
 	height:81rpx;
 	border:2rpx solid rgba(126,107,90,1);
-	-webkit-border-radius:10rpx;
-	        border-radius:10rpx;
+	border-radius:10rpx;
 	margin-left:12rpx;
 }
 
