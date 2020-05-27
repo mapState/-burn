@@ -104,7 +104,8 @@ page{
 	width:610rpx;
 	height:429rpx;
 	background:rgba(253,240,214,1);
-	border-radius:6rpx;
+	-webkit-border-radius:6rpx;
+	        border-radius:6rpx;
 }
 .countdownTopText{
 	font-size:38rpx;

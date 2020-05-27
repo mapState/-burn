@@ -2,32 +2,41 @@ import Vue from 'vue'
 import App from './App'
 
 import uniRequest from 'uni-request';
-uniRequest.defaults.baseURL = 'http://121.40.141.26';
-uniRequest.defaults.headers.common['Authorization'] = 'Bearer '+uni.getStorageSync('token')||'';
+uniRequest.defaults.baseURL = 'https://www.csdc8.top';
+// uniRequest.defaults.headers.common['Authorization'] = 'Bearer ' + uni.getStorageSync('token');
 uniRequest.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // 请求拦截
-// uniRequest.interceptors.request.use(
-// 	request => {
-// 	uni.showLoading({
-// 	    title: '加载中',
-// 		mask:"true"
-// 	});
-// 	//配置基本信息
-// 	return request;
-// 	},
-// 	err => {
-// 		uni.showLoading({
-// 			title: '网络故障',
-// 			mask:"true"
-// 		});
-// 	return Promise.reject(err);
-// });
+uniRequest.interceptors.request.use(
+	request => {
+		request.headers['Authorization'] = 'Bearer ' + uni.getStorageSync('token');
+	//配置基本信息
+	return request;
+	},
+	err => {
+		uni.showLoading({
+			title: '网络故障',
+			mask:"true"
+		});
+	return Promise.reject(err);
+});
 
 	//响应拦截
 	uniRequest.interceptors.response.use(function(response) {
+		//console.log(response)
 		if(response.status==200&&response.data.code===200){
 			return Promise.resolve(response.data.data);
-		}else{
+		}else if(response.status===401){
+				uni.showToast({
+					title:'登录过期',
+					icon:"none"
+				})
+				 uni.clearStorageSync();
+				 uni.reLaunch({
+				     url: '/pages/index/index'
+				 });
+				return Promise.reject(response.data.data);
+		}
+		else{
 			uni.showToast({
 				title:response.data.message,
 				icon:"none"

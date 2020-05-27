@@ -3,6 +3,17 @@
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
+			wx.loadFontFace({
+			  family: 'book',
+			  global:true,
+			  source: 'url("https://www.csdc8.top/mini/book3500.ttf")',
+			  success: res => {
+			    console.log('font load success', res)
+			  },
+			  fail: err => {
+			    console.log('font load fail', err)
+			  }
+			})
 		},
 		onShow: function() {
 			this.autoUpdate()
@@ -106,14 +117,14 @@
 
 <style>
 	@import url("common/animate.min.css");
-	@font-face{
+	/* @font-face{
 		font-family: "book";
-		src:url('http://121.40.141.26/mini/book.TTF') format('truetype');
-	}
+		src:url('https://www.csdc8.top/mini/f.ttf') format('truetype');
+	} */
 	page{
 		width:100%;
 		font-size:32rpx;
-		font-family: "PingFang SC",miui,system-ui,-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,sans-serif;
+		font-family: 'book';
 	}
 	.main{
 		width:100%;

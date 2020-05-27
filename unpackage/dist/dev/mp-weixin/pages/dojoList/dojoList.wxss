@@ -16,7 +16,8 @@
 .listImg{
 	width:324rpx;
 	height:431rpx;
-	border-radius:10rpx;
+	-webkit-border-radius:10rpx;
+	        border-radius:10rpx;
 	margin-bottom: 26rpx;
 }
 .listItemText{

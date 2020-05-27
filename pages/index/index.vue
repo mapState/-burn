@@ -24,7 +24,7 @@
 			}
 		},
 		onLoad() {
-
+			
 		},
 		methods: {
 			goDojoList(){

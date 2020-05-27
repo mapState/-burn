@@ -3,7 +3,8 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "",
+				"disableScroll":true
 			}
 		}
 	    ,{
@@ -20,24 +21,28 @@
         }
         ,{
             "path" : "pages/chooseDojo/chooseDojo",
-            "style" : {}
+            "style" : {
+			}
         }
         ,{
             "path" : "pages/birthday/birthday",
-            "style" : {}
+            "style" : {
+			}
         },
         {
             "path" : "pages/matchDojo/matchDojo",
-            "style" : {}
+            "style" : {
+			}
         }
         ,{
             "path" : "pages/package/package",
-            "style" : {}
+            "style" : {
+			}
         }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "易经烧香",
+		"navigationBarTitleText": "",
 		"navigationBarBackgroundColor": "#9A392E",
 		"backgroundColor": "#F8F8F8"
 	},

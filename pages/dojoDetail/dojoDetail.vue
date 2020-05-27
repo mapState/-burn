@@ -3,7 +3,7 @@
 		<view class="leftIconBox" :style="{top:top+'px'}">
 			<image src="../../static/img/left.png" mode="aspectFill" class="leftIcon" @click="goBack"></image>
 		</view>
-		<image src="../../static/tmp/x1.png" mode="widthFix" class="topImg"></image>
+		<image :src="detail.main_image" mode="widthFix" class="topImg"></image>
 		<view class="detail">
 			<view class="dTitle">
 				<text class="dTitleTxt">{{detail.info||detail.name}}</text>
@@ -73,8 +73,26 @@
 		methods: {
 			//供奉
 			goWorship(){
-				uni.navigateTo({
-					url:'/pages/package/package?detail='+JSON.stringify(this.detail)
+				let user_id=uni.getStorageSync('paryData').user_id
+				let pray_id=uni.getStorageSync('paryData').id
+				this.$api.get('/api/pray/'+user_id+'/isend/'+pray_id).then((res)=>{
+					console.log(res)
+					uni.navigateTo({
+						url:'/pages/package/package?detail='+JSON.stringify(this.detail)+'&status=1'
+					})
+				}).catch((err)=>{
+					if(uni.getStorageSync('first')==0){
+						//窮鬼沒氪過金 第一次來
+						uni.navigateTo({
+							url:'/pages/package/package?detail='+JSON.stringify(this.detail)
+						})
+					}else{
+						uni.navigateTo({
+							url:'/pages/package/package?detail='+JSON.stringify(this.detail)+'&expired=1'
+						})
+					}
+					console.log(err)
+					
 				})
 			},
 			goBack(){
@@ -208,15 +226,17 @@
 	.godImg{
 		width:329rpx;
 		height: 257rpx;
-		margin-bottom: 92rpx;
+		margin-bottom:160rpx;
 	}
 	.btnBox{
-		position: relative;
+		position: fixed;
 		width:564rpx;
 		height: 81rpx;
 		text-align: center;
 		line-height: 81rpx;
-		margin-bottom: 60rpx;
+		left:50%;
+		transform: translateX(-50%);
+		bottom:77rpx;
 	}
 	.btnImg{
 		position: absolute;

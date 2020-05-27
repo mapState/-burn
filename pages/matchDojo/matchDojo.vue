@@ -5,7 +5,7 @@
 			<image src="../../static/img/border.png" mode="aspectFill" class="borderImg"></image>
 			<text class="title">星盘轮转 推演大成</text>
 		</view>
-		<text class="wantTitle">***,您祈求之福报为</text>
+		<text class="wantTitle">{{name}},您祈求之福报为</text>
 		<view class="wantList">
 			<text class="wantItem" v-for="(item,index) in wishList" :key="item">{{item}}</text>
 		</view>
@@ -15,7 +15,7 @@
 				
 		</view> -->
 		<text class="hz">{{detail.name}}</text>
-		<text class="hz">{{detail.info}}</text>
+		<text class="info">{{detail.info}}</text>
 		<view class="btnBox" @click="goDojoDetail">
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
 			<text class="btnText">立即前往</text>
@@ -28,7 +28,8 @@
 		data() {
 			return {
 				detail:{},
-				wishList:[]
+				wishList:[],
+				name:uni.getStorageSync('name')||'***'
 			}
 		},
 		onLoad(params) {
@@ -135,6 +136,13 @@
 		font-family:'book';
 		font-weight:400;
 		color:rgba(149,95,68,1);
+	}
+	.info{
+		font-size:60rpx;
+		font-family:'book';
+		font-weight:400;
+		color:rgba(149,95,68,1);
+		text-align: center;
 	}
 	.btnBox{
 		position: relative;

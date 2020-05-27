@@ -44,7 +44,8 @@ page{
 	font-weight:400;
 	color:rgba(149,95,68,1);
 	padding-left: 80rpx;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 }
 .mainImg{
 	width:603rpx;
@@ -53,7 +54,8 @@ page{
 }
 .wantList{
 	width:100%;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	padding-left:80rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -83,6 +85,13 @@ page{
 	font-family:'book';
 	font-weight:400;
 	color:rgba(149,95,68,1);
+}
+.info{
+	font-size:60rpx;
+	font-family:'book';
+	font-weight:400;
+	color:rgba(149,95,68,1);
+	text-align: center;
 }
 .btnBox{
 	position: relative;

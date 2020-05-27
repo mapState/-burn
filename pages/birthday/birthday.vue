@@ -118,8 +118,8 @@
 		},
 		data() {
 			return {
-				date: '2020-05-22',//日期
-				time: '13-26',//时间
+				date: '2020-05-27',//日期
+				time: '0-26',//时间
 				isHourShow: false,//是否显示时辰（小时）
 				isMinShow: false,//是否显示分钟
 				lunarType: 'number', //年月日显示方式
@@ -140,8 +140,8 @@
 				sexIndex:0,
 				region:[],//默认地址
 				region1:[],//默认地址
-				defaultRegion:['广东省','广州市','番禺区'],
-				defaultRegionCode:'440113',
+				defaultRegion:['北京','市辖区','东城区'],
+				defaultRegionCode:'110101',
 				nameForom:{
 					surname:'',
 					name:''
@@ -220,6 +220,8 @@
 				}).then((res)=>{
 					console.log(res)
 					uni.setStorageSync('paryData',res.prayer)
+					uni.setStorageSync('name',this.nameForom.surname+this.nameForom.name)
+					uni.setStorageSync('first',res.first)
 					uni.redirectTo({
 						url:'/pages/matchDojo/matchDojo?detail='+JSON.stringify(res.dojo)
 					})
@@ -511,9 +513,11 @@
 		margin-bottom: 49rpx;
 		text-align: center;
 		line-height: 81rpx;
+		box-sizing: border-box;
 	}
 	.sexActive{
 		background:rgba(179,127,93,1);
+		border:none;
 	}
 	.calendarBox{
 		width:100%;

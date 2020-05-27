@@ -12,7 +12,7 @@
 			</view>
 		</view>
 		<view class="packageList operating" v-if="status==1">
-			<view class="listItem">
+			<view class="listItem" @click="jin">
 				<image src="../../static/img/btn.png" mode="scaleToFill" class="btnImg"></image>
 				<view class="itemContent">
 					<text>今日进香</text>
@@ -81,9 +81,9 @@
 			return {
 				limit:10,
 				page:1,
-				leftTitle:'庇佑小熊心想事成',
+				leftTitle:'庇佑大家心想事成',
 				rightTitle:'西路财神纳珍天尊',
-				imgUrl:'http://121.40.141.26/upload/images/20200525/e%20one.png',
+				imgUrl:'',
 				status:0,//0需要氪金了 1氪金cd中
 				tmpImg:'',
 				width:452,
@@ -91,7 +91,7 @@
 				pixelRatio:2,
 				bgPath:'/static/tmp/pbg.png',//底板
 				codePath:'/static/tmp/eg.png',//小程序码
-				god:'/static/tmp/x2.png',
+				// god:'/static/tmp/x2.png',
 				shareInfo:{
 					title:'',
 					poser:''
@@ -117,8 +117,23 @@
 			this.getShareInfo()
 			this.getPackage()
 			this.detail=JSON.parse(params.detail)
-			//this.imgUrl=this.detail.pay_image
-			//this.open()
+			this.imgUrl=this.detail.main_image
+			uni.getStorage({
+			    key: 'name',
+			    success: (res)=> {
+			        this.leftTitle='庇佑'+res.data+'心想事成'
+					this.rightTitle=this.detail.info.substr(0,8)
+			    }
+			});
+			console.log(params)
+			if(params.status){
+				this.status=1
+			}else if(params.expired){
+				this.open()
+				this.status=0
+			}else{
+				this.status=0
+			}
 		},
 		onShareAppMessage(res) {
 			if (res.from === 'button') {// 来自页面内分享按钮
@@ -130,6 +145,16 @@
 			}
 		},
 		methods: {
+			//上香啊
+			jin(){
+				let prayer=uni.getStorageSync('paryData').id
+				this.$api.put('/api/prayer/'+prayer).then((res)=>{
+					uni.showToast({
+						title:'上香成功',
+						icon:'none'
+					})
+				})
+			},
 			//获取套餐
 			getPackage(){
 				this.$api.get('/api/pray',{
@@ -155,27 +180,39 @@
 			//生成海报
 			getPoster(){
 				this.$refs.share.close()
+				uni.showLoading({
+				    title: '海报生成中...',
+				});
 				let that = this
 				let context = wx.createCanvasContext('myCanvas');
 				context.width = this.width;
 				context.height = this.height;
 				let x = context.width / 2;
 				wx.getImageInfo({
-				  src: this.god,
+				  src: this.shareInfo.poser,
 				  success: (res) => {
 					console.log(res)
 					context.drawImage(this.bgPath, 0,0,this.width,this.height);
-					if(this.pixelRatio===2){
-						context.drawImage(this.god,0,0,206*this.pixelRatio,159*this.pixelRatio,10*this.pixelRatio,51*this.pixelRatio,206*this.pixelRatio,159*this.pixelRatio);
-					}else{
-						context.drawImage(this.god,0,0,206*this.pixelRatio,159*this.pixelRatio,46*this.pixelRatio,51*this.pixelRatio,206*this.pixelRatio,159*this.pixelRatio);
+					context.drawImage(res.path,0,0,226*this.pixelRatio,210*this.pixelRatio,);
+					context.setFontSize(12*this.pixelRatio);
+					context.setFillStyle('#935C41');
+					context.setTextAlign('center');
+					let text=this.shareInfo.title
+					if(text.length>16){
+						text=text.substr(0,16)+'...'
 					}
+					context.fillText(text,this.width/2, 226*this.pixelRatio);
+					// if(this.pixelRatio===2){
+					// 	context.drawImage(this.god,0,0,206*this.pixelRatio,159*this.pixelRatio,10*this.pixelRatio,51*this.pixelRatio,206*this.pixelRatio,159*this.pixelRatio);
+					// }else{
+					// 	context.drawImage(this.god,0,0,206*this.pixelRatio,159*this.pixelRatio,46*this.pixelRatio,51*this.pixelRatio,206*this.pixelRatio,159*this.pixelRatio);
+					// }
 					context.save();
 					context.restore();
 					wx.getImageInfo({
 					  src: that.codePath,
 					  success: (res1) => {
-						context.drawImage(that.codePath, 13*that.pixelRatio,257*that.pixelRatio,52*that.pixelRatio,52*that.pixelRatio);
+						context.drawImage(that.codePath, 13*that.pixelRatio,258*that.pixelRatio,52*that.pixelRatio,52*that.pixelRatio);
 						context.save();
 						context.restore();
 						context.draw();
@@ -192,10 +229,12 @@
 							  var tempFilePath = res.tempFilePath;
 							  this.tmpImg=tempFilePath
 							  console.log(tempFilePath)
+							  uni.hideLoading();
 							  this.$refs.poster.open()
 							},
 							fail: (res)=>{
 							  console.log(res);
+							  uni.hideLoading();
 							}
 						  });
 						}, 300);
@@ -271,18 +310,24 @@
 									'timeStamp': info.timeStamp,
 									'nonceStr': info.nonceStr,
 									'package': info.package,
-									'signType': "MD5",
+									'signType': info.signType,
 									'paySign': info.paySign,
 									'success':(res2)=>{
 										console.log(res2)
 										console.log("支付成功")
 										uni.showToast({
 											title:"支付成功",
-											duration:500
+											duration:1200
 										})
+										this.status=1
 									},
 									'fail':function(err1){
 										console.log("支付失败")
+										uni.showToast({
+											title:'支付失败',
+											icon:'none',
+											duration:1200
+										})
 									},
 									'complete':function(err2){
 										

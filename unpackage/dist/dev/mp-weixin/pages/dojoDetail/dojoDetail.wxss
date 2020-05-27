@@ -121,15 +121,18 @@
 .godImg{
 	width:329rpx;
 	height: 257rpx;
-	margin-bottom: 92rpx;
+	margin-bottom:160rpx;
 }
 .btnBox{
-	position: relative;
+	position: fixed;
 	width:564rpx;
 	height: 81rpx;
 	text-align: center;
 	line-height: 81rpx;
-	margin-bottom: 60rpx;
+	left:50%;
+	-webkit-transform: translateX(-50%);
+	        transform: translateX(-50%);
+	bottom:77rpx;
 }
 .btnImg{
 	position: absolute;
@@ -166,7 +169,8 @@
 	width:610rpx;
 	height:434rpx;
 	background:rgba(253,240,214,1);
-	border-radius:6rpx;
+	-webkit-border-radius:6rpx;
+	        border-radius:6rpx;
 }
 .countdownTop{
 	width:100%;

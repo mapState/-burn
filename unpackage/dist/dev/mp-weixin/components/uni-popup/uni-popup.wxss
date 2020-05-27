@@ -24,11 +24,11 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.uni-popup.data-v-04c6c3b9 {
+.uni-popup.data-v-f9130302 {
   position: fixed;
   z-index: 99;
 }
-.uni-popup__mask.data-v-04c6c3b9 {
+.uni-popup__mask.data-v-f9130302 {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -37,39 +37,39 @@
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 0;
 }
-.mask-ani.data-v-04c6c3b9 {
+.mask-ani.data-v-f9130302 {
   -webkit-transition-property: opacity;
   transition-property: opacity;
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
 }
-.uni-top-mask.data-v-04c6c3b9 {
+.uni-top-mask.data-v-f9130302 {
   opacity: 1;
 }
-.uni-bottom-mask.data-v-04c6c3b9 {
+.uni-bottom-mask.data-v-f9130302 {
   opacity: 1;
 }
-.uni-center-mask.data-v-04c6c3b9 {
+.uni-center-mask.data-v-f9130302 {
   opacity: 1;
 }
-.uni-popup__wrapper.data-v-04c6c3b9 {
+.uni-popup__wrapper.data-v-f9130302 {
   display: block;
   position: absolute;
 }
-.top.data-v-04c6c3b9 {
+.top.data-v-f9130302 {
   top: 0;
 }
-.bottom.data-v-04c6c3b9 {
+.bottom.data-v-f9130302 {
   bottom: 0;
 }
-.uni-popup__wrapper-box.data-v-04c6c3b9 {
+.uni-popup__wrapper-box.data-v-f9130302 {
   display: block;
   position: relative;
   /* iphonex 等安全区设置，底部安全区适配 */
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
-.content-ani.data-v-04c6c3b9 {
+.content-ani.data-v-f9130302 {
   -webkit-transition-property: opacity, -webkit-transform;
   transition-property: opacity, -webkit-transform;
   transition-property: transform, opacity;
@@ -77,15 +77,15 @@
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
 }
-.uni-top-content.data-v-04c6c3b9 {
+.uni-top-content.data-v-f9130302 {
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
-.uni-bottom-content.data-v-04c6c3b9 {
+.uni-bottom-content.data-v-f9130302 {
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
-.uni-center-content.data-v-04c6c3b9 {
+.uni-center-content.data-v-f9130302 {
   -webkit-transform: scale(1);
           transform: scale(1);
   opacity: 1;

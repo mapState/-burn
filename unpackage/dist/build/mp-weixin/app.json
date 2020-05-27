@@ -5,7 +5,8 @@
     "pages/dojoDetail/dojoDetail",
     "pages/chooseDojo/chooseDojo",
     "pages/birthday/birthday",
-    "pages/matchDojo/matchDojo"
+    "pages/matchDojo/matchDojo",
+    "pages/package/package"
   ],
   "subPackages": [],
   "window": {
