@@ -44,8 +44,7 @@ page{
 	font-weight:400;
 	color:rgba(149,95,68,1);
 	padding-left: 80rpx;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .mainImg{
 	width:603rpx;
@@ -54,8 +53,7 @@ page{
 }
 .wantList{
 	width:100%;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	padding-left:80rpx;
 	display: -webkit-box;
 	display: -webkit-flex;

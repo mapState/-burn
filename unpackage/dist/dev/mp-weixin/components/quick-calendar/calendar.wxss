@@ -37,10 +37,8 @@
 	margin-top: 10rpx;
 	padding: 10rpx 30rpx;
 	border: 1rpx solid rgb(201, 23, 35);
-	-webkit-border-top-left-radius: 10rpx;
-	        border-top-left-radius: 10rpx;
-	-webkit-border-bottom-left-radius: 10rpx;
-	        border-bottom-left-radius: 10rpx;
+	border-top-left-radius: 10rpx;
+	border-bottom-left-radius: 10rpx;
 	color: rgb(201, 23, 35);
 }
 .pickerHeaderTitle .actionBtn .lunar{
@@ -49,10 +47,8 @@
 	margin-top: 10rpx;
 	padding: 10rpx 30rpx;
 	border: 1rpx solid rgb(201, 23, 35);
-	-webkit-border-top-right-radius: 10rpx;
-	        border-top-right-radius: 10rpx;
-	-webkit-border-bottom-right-radius: 10rpx;
-	        border-bottom-right-radius: 10rpx;
+	border-top-right-radius: 10rpx;
+	border-bottom-right-radius: 10rpx;
 	color: rgb(201, 23, 35);
 }
 .pickerHeaderTitle .actionBtn .current {
@@ -74,6 +70,6 @@
 .confirmSubTitle {font-size: 34rpx; color: #000000; line-height: 48rpx; margin-top: 48rpx; padding-bottom: 20rpx;}
 .confirmView .solar, .confirmView .lunar {font-size: 34rpx; color: rgb(163, 30, 26); line-height: 34rpx; padding: 10rpx 0rpx;}
 .confirmView .buttons {padding: 40rpx 0rpx; display: -webkit-box; display: -webkit-flex; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -webkit-flex-direction: row; flex-direction: row; -webkit-box-pack: center; -webkit-justify-content: center; justify-content: center; color: #FFFFFF; font-size: 34rpx;}
-.confirmView .buttons .blak {display: inline-block; padding: 20rpx 40rpx; -webkit-border-radius: 10rpx; border-radius: 10rpx; background: #DDDDDD;}
-.confirmView .buttons .confirm {display: inline-block; padding: 20rpx 40rpx; margin-left: 40rpx; -webkit-border-radius: 10rpx; border-radius: 10rpx; background: rgb(163, 30, 26);}
+.confirmView .buttons .blak {display: inline-block; padding: 20rpx 40rpx; border-radius: 10rpx; background: #DDDDDD;}
+.confirmView .buttons .confirm {display: inline-block; padding: 20rpx 40rpx; margin-left: 40rpx; border-radius: 10rpx; background: rgb(163, 30, 26);}
 

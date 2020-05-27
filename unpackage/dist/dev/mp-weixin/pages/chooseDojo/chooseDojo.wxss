@@ -27,8 +27,7 @@ page {
 	margin-top: 90rpx;
 	position: relative;
 	/* border:1px solid #000; */
-	-webkit-border-radius: 50%;
-	        border-radius: 50%;
+	border-radius: 50%;
 }
 .gossipImg {
 	width: 305rpx;

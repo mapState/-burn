@@ -529,7 +529,6 @@
 		margin-left:69rpx;
 		border:2rpx solid rgba(126,107,90,1);
 		font-size:36rpx;
-		font-family:'book';
 		font-weight:400;
 		color:#9A392E;
 	}

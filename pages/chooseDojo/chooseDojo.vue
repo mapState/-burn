@@ -109,8 +109,8 @@
 		<view class="btnBox">
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
 			<text class="btnTxt" @click="goMatch">匹配本命财神道场</text>
-			<!-- <button open-type="getUserInfo" @getuserinfo="getUserInfo" class="getUserBtn" v-if="!hasToken"></button> -->
-			<button class="getUserBtn" open-type="getPhoneNumber" @getphonenumber="getUserInfo"></button>
+			<button open-type="getUserInfo" @getuserinfo="getUserInfo" class="getUserBtn" v-if="!hasToken"></button>
+			
 		</view>
 	</view>
 </template>
@@ -140,7 +140,7 @@
 						})
 					} else {
 						uni.showToast({
-							title: "以上限求三项",
+							title: "必须求三项",
 							icon: 'none'
 						})
 						return
@@ -159,45 +159,46 @@
 					// error
 				}
 			},
-			getUserInfo(e) {
-				console.log(e)
-				wx.login({
-					success: (zz) => {
-						console.log(zz);
-						wx.getUserInfo({
-							success: (res) => {
-								console.log(res);
-									this.$api.post('/api/user/login', {
-										code: zz.code,
-										avatar_url: res.userInfo.avatarUrl,
-										nickname: res.userInfo.nickName,
-										iv: e.detail.iv,
-										encryptedData: e.detail.encryptedData
-									}).then((res1) => {
-										console.log(res1)
-										if (res1.access_token) {
-											this.hasToken = true
-										} else {
-											return
-										}
-										uni.setStorageSync('token', res1.access_token)
-										uni.setStorageSync('user_id', res1.user_id)
-										this.goMatch()
-										// uni.setStorage({
-										//     key: 'user_id',
-										//     data: res.user_id,
-										//     success:()=>{
-										// 		console.log('user_id set success')
-										//     }
-										// });
-									})
-							},
-							complete:(e)=>{
-								console.log(e)
+			getUserInfo(info) {
+				console.log(info);
+				if (info.detail.userInfo) {
+				  console.log("点击了同意授权");
+				  wx.login({
+					success: (res)=>{
+						console.log(res)
+					  if (res.code) {
+						this.$api.post('/api/user/login',{
+							code:res.code,
+							iv:info.detail.iv,
+							avatar_url: info.detail.userInfo.avatarUrl,
+							nickname: info.detail.userInfo.nickName,
+						}).then((res)=>{
+							console.log(res)
+							if(res.token){
+								this.hasToken=true
+							}else{
+								return
 							}
-						});
-					}
-				});
+							uni.setStorageSync('token',res.token)
+							uni.setStorageSync('user_id',res.user_id)
+							this.goMatch()
+							// uni.setStorage({
+							//     key: 'user_id',
+							//     data: res.user_id,
+							//     success:()=>{
+							// 		console.log('user_id set success')
+							//     }
+							// });
+						})
+					  } else {
+						console.log("授权失败");
+					  }
+					},
+				  })
+				} else {
+				  console.log("点击了拒绝授权");
+				  this.back()
+				}
 			},
 			selItem(index) {
 				let i = this.selIdList.indexOf(index)
