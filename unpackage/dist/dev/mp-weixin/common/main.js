@@ -148,10 +148,6 @@ __webpack_require__.r(__webpack_exports__);
 var _uniRequest = _interopRequireDefault(__webpack_require__(/*! uni-request */ 8));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   onLaunch: function onLaunch() {
-    uni.showLoading({
-      title: '加载中',
-      mask: true });
-
     var self = this;
     console.log('App Launch');
     var token = uni.getStorageSync('token') || '';
@@ -183,10 +179,8 @@ var _uniRequest = _interopRequireDefault(__webpack_require__(/*! uni-request */ 
           } else {
             console.log('登录失败！' + res.errMsg);
           }
-        },
-        fail: function fail() {
-          uni.hideLoading();
         } });
+
 
     }
     // wx.loadFontFace({
@@ -224,7 +218,6 @@ var _uniRequest = _interopRequireDefault(__webpack_require__(/*! uni-request */ 
             url: '/pages/package/package?detail=' + JSON.stringify(res.dojo) + '&expired=1' });
 
         }
-        uni.hideLoading();
       });
     },
     //获取用户信息

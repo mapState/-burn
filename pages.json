@@ -85,6 +85,10 @@
 			{
 				"name": "package",
 				"path" : "pages/package/package"
+			},
+			{
+				"name": "index",
+				"path" : "pages/index/index"
 			}
 			
 	    ]}

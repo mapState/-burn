@@ -67,7 +67,7 @@
 		margin-top: 55rpx;
 	}
 	.foImg{
-		width:689rpx;
+		width:679rpx;
 		height: 804rpx;
 		margin-top: 42rpx;
 	}

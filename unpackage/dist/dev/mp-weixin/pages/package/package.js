@@ -252,8 +252,12 @@ __webpack_require__.r(__webpack_exports__);
 
     this.getShareInfo();
     this.getPackage();
-    this.detail = JSON.parse(params.detail);
-    this.imgUrl = this.detail.main_image;
+    try {
+      this.detail = JSON.parse(params.detail);
+      this.imgUrl = this.detail.main_image;
+    } catch (e) {
+      //TODO handle the exception
+    }
     uni.getStorage({
       key: 'name',
       success: function success(res) {
@@ -270,6 +274,9 @@ __webpack_require__.r(__webpack_exports__);
     } else {
       this.status = 0;
     }
+  },
+  onShow: function onShow() {
+    wx.hideHomeButton();
   },
   onShareAppMessage: function onShareAppMessage(res) {
     if (res.from === 'button') {// 来自页面内分享按钮
@@ -289,6 +296,8 @@ __webpack_require__.r(__webpack_exports__);
           title: '上香成功',
           icon: 'none' });
 
+      }).catch(function (err) {
+        console.log('jx catch');
       });
     },
     //获取套餐

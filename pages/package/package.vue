@@ -116,8 +116,12 @@
 			})
 			this.getShareInfo()
 			this.getPackage()
-			this.detail=JSON.parse(params.detail)
-			this.imgUrl=this.detail.main_image
+			try{
+				this.detail=JSON.parse(params.detail)
+				this.imgUrl=this.detail.main_image
+			}catch(e){
+				//TODO handle the exception
+			}
 			uni.getStorage({
 			    key: 'name',
 			    success: (res)=> {
@@ -134,6 +138,9 @@
 			}else{
 				this.status=0
 			}
+		},
+		onShow(){
+			wx.hideHomeButton()
 		},
 		onShareAppMessage(res) {
 			if (res.from === 'button') {// 来自页面内分享按钮
@@ -153,6 +160,8 @@
 						title:'上香成功',
 						icon:'none'
 					})
+				}).catch((err)=>{
+					console.log('jx catch')
 				})
 			},
 			//获取套餐

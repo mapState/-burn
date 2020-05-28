@@ -2,10 +2,6 @@
 	import axios from 'uni-request';
 	export default {
 		onLaunch: function() {
-			uni.showLoading({
-			    title: '加载中',
-				mask:true
-			});
 			let self = this;
 			console.log('App Launch')
 			let token = uni.getStorageSync('token')||''
@@ -37,10 +33,8 @@
 				    } else {
 				      console.log('登录失败！' + res.errMsg)
 				    }
-				  },
-				  fail(){
-					  uni.hideLoading();
 				  }
+				 
 				})
 			}
 			// wx.loadFontFace({
@@ -78,7 +72,6 @@
 							url:'/pages/package/package?detail='+JSON.stringify(res.dojo)+'&expired=1'
 						})
 					}
-					uni.hideLoading();
 				})
 			},
 			//获取用户信息
