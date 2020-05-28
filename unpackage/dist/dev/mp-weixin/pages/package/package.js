@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniPopup: function() {
-    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 74))
+    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 98))
   }
 }
 var render = function() {
@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 74));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 98));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -226,7 +226,7 @@ __webpack_require__.r(__webpack_exports__);
       height: 650,
       pixelRatio: 2,
       bgPath: '/static/tmp/pbg.png', //底板
-      codePath: '/static/tmp/eg.png', //小程序码
+      codePath: '/static/tmp/code.jpg', //小程序码
       // god:'/static/tmp/x2.png',
       shareInfo: {
         title: '',
@@ -420,8 +420,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.share.open();
     },
     goBack: function goBack() {
-      uni.navigateBack({
-        delta: 1 });
+      uni.reLaunch({
+        url: '/pages/index/index' });
 
     },
     //套餐过期
@@ -429,9 +429,14 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.popup.open();
     },
     close: function close() {
+      this.status = 0;
       this.$refs.popup.close();
     },
     wxPay: function wxPay(pray_id) {var _this5 = this;
+      uni.showLoading({
+        title: '加载中',
+        mask: true });
+
       wx.login({
         success: function success(res) {
           if (res.code) {
@@ -466,7 +471,7 @@ __webpack_require__.r(__webpack_exports__);
 
                 },
                 'complete': function complete(err2) {
-
+                  uni.hideLoading();
                 } });
 
             });

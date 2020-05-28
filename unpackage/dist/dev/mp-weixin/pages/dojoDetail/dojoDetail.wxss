@@ -101,7 +101,6 @@
 }
 .t1{
 	font-size:32rpx;
-	font-family:書體坊顏體㊣;
 	font-weight:400;
 	color:rgba(147,92,65,1);
 }

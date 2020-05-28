@@ -2,18 +2,59 @@
 	import axios from 'uni-request';
 	export default {
 		onLaunch: function() {
+			uni.showLoading({
+			    title: '加载中',
+				mask:true
+			});
+			let self = this;
 			console.log('App Launch')
-			wx.loadFontFace({
-			  family: 'book',
-			  global:true,
-			  source: 'url("https://www.csdc8.top/mini/book3500.ttf")',
-			  success: res => {
-			    console.log('font load success', res)
-			  },
-			  fail: err => {
-			    console.log('font load fail', err)
-			  }
-			})
+			let token = uni.getStorageSync('token')||''
+			console.log(token)
+			if(token){
+				self.getStatus()
+			}else{
+				wx.login({
+				  success (res) {
+				    if (res.code) {
+						console.log(self)
+						self.$api.post('api/user/login',{
+							code:res.code
+						}).then((res)=>{
+							if(res.access_token){
+								self.hasToken=true
+							}else{
+								return
+							}
+							
+							if (!res.first) {
+								uni.setStorageSync('token',res.access_token)
+								uni.setStorageSync('user_id',res.user_id)
+								self.getStatus()
+							}else{
+								
+							}
+						})
+				    } else {
+				      console.log('登录失败！' + res.errMsg)
+				    }
+				  },
+				  fail(){
+					  uni.hideLoading();
+				  }
+				})
+			}
+			// wx.loadFontFace({
+			//   family: 'book',
+			//   global:true,
+			//   source: 'url("https://www.csdc8.top/mini/book3500.ttf")',
+			//   success: res => {
+			//     console.log('font load success', res)
+			//   },
+			//   fail: err => {
+			//     console.log('font load fail', err)
+			//   }
+			// })
+			
 		},
 		onShow: function() {
 			this.autoUpdate()
@@ -24,6 +65,22 @@
 			console.log('App Hide')
 		},
 		methods:{
+			getStatus(){
+				this.$api.get('api/pray/show').then((res)=>{
+					console.log(res)
+					uni.setStorageSync('paryData',res.prayer)
+					if(res.status==1){
+						uni.redirectTo({
+						    url:'/pages/package/package?detail='+JSON.stringify(res.dojo)+'&status=1'
+						});
+					}else if(res.status==0){
+						uni.redirectTo({
+							url:'/pages/package/package?detail='+JSON.stringify(res.dojo)+'&expired=1'
+						})
+					}
+					uni.hideLoading();
+				})
+			},
 			//获取用户信息
 			getInfo(){
 				let token=uni.getStorageSync('token')
@@ -117,10 +174,10 @@
 
 <style>
 	@import url("common/animate.min.css");
-	/* @font-face{
+	@font-face{
 		font-family: "book";
-		src:url('https://www.csdc8.top/mini/f.ttf') format('truetype');
-	} */
+		src:url('https://www.csdc8.top/mini/book3500.ttf') format('truetype');
+	}
 	page{
 		width:100%;
 		font-size:32rpx;

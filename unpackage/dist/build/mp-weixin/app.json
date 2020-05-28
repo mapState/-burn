@@ -6,12 +6,15 @@
     "pages/chooseDojo/chooseDojo",
     "pages/birthday/birthday",
     "pages/matchDojo/matchDojo",
-    "pages/package/package"
+    "pages/package/package",
+    "pages/sex/sex",
+    "pages/name/name",
+    "pages/position/position"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "易经烧香",
+    "navigationBarTitleText": "",
     "navigationBarBackgroundColor": "#9A392E",
     "backgroundColor": "#F8F8F8"
   },

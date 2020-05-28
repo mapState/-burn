@@ -253,11 +253,10 @@
 .animated.slow{-webkit-animation-duration:2s;animation-duration:2s}
 .animated.slower{-webkit-animation-duration:3s;animation-duration:3s}
 @media (prefers-reduced-motion:reduce), (print){.animated{-webkit-animation-duration:1ms!important;animation-duration:1ms!important;-webkit-transition-duration:1ms!important;transition-duration:1ms!important;-webkit-animation-iteration-count:1!important;animation-iteration-count:1!important}}
-
-/* @font-face{
+@font-face{
 	font-family: "book";
-	src:url('https://www.csdc8.top/mini/f.ttf') format('truetype');
-} */
+	src:url('https://www.csdc8.top/mini/book3500.ttf') format('truetype');
+}
 page{
 	width:100%;
 	font-size:32rpx;

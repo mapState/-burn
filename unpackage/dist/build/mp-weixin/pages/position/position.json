@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "pick-regions": "/components/pick-regions/pick-regions",
+    "zan-calendar": "/components/quick-calendar/calendar"
+  }
+}

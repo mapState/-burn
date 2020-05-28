@@ -105,7 +105,7 @@
 				</view>
 			</view>
 		</view>
-		<text class="tip">（以上限求三项）</text>
+		<text class="tip">（以上可求三卦）</text>
 		<view class="btnBox">
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
 			<text class="btnTxt" @click="goMatch">匹配本命财神道场</text>
@@ -140,7 +140,7 @@
 						})
 					} else {
 						uni.showToast({
-							title: "必须求三项",
+							title: "福报无穷，可求三卦",
 							icon: 'none'
 						})
 						return
@@ -167,7 +167,7 @@
 					success: (res)=>{
 						console.log(res)
 					  if (res.code) {
-						this.$api.post('/api/user/login',{
+						this.$api.post('/api/user/get_user_info',{
 							code:res.code,
 							avatar_url: info.detail.userInfo.avatarUrl,
 							nickname: info.detail.userInfo.nickName,

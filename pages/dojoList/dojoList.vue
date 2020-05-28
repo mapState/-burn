@@ -53,20 +53,24 @@
 
 <style>
 	.list{
-		width:700rpx;
+		width:674rpx;
 		display: flex;
 		flex-wrap: wrap;
 		margin-top: 31rpx;
 	}
 	.listItem{
 		width:324rpx;
-		padding:0 13rpx;
 		margin-bottom: 29rpx;
+		box-sizing: border-box;
+	}
+	.listItem:nth-child(2n){
+		margin-left:26rpx;
 	}
 	.listImg{
 		width:324rpx;
 		height:431rpx;
 		border-radius:10rpx;
+		box-sizing: border-box;
 		margin-bottom: 26rpx;
 	}
 	.listItemText{

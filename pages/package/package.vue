@@ -30,11 +30,11 @@
 				<text class="countdownTopText">供奉已到期</text>
 				<view class="btnBox" @click="close">
 					<image src="../../static/img/btn.png" mode="aspectFill" class="btnBoxImg"></image>
-					<text class="btnBoxTxt">继续供奉</text>
+					<text class="btnBoxTxt">重新续费</text>
 				</view>
 				<view class="btnBox" @click="goBack">
 					<image src="../../static/img/gray.png" mode="aspectFill" class="btnBoxImg"></image>
-					<text class="btnBoxTxt gray">取消供奉</text>
+					<text class="btnBoxTxt gray">重新匹配</text>
 				</view>
 				<view class="closeBox" @click="close">
 					<image src="../../static/img/closeIcon.png" mode="aspectFill" class="closeIcon"></image>
@@ -90,7 +90,7 @@
 				height:650,
 				pixelRatio:2,
 				bgPath:'/static/tmp/pbg.png',//底板
-				codePath:'/static/tmp/eg.png',//小程序码
+				codePath:'/static/tmp/code.jpg',//小程序码
 				// god:'/static/tmp/x2.png',
 				shareInfo:{
 					title:'',
@@ -284,18 +284,23 @@
 				this.$refs.share.open()
 			},
 			goBack(){
-				uni.navigateBack({
-					delta:1
-				})
+				uni.reLaunch({
+				    url: '/pages/index/index'
+				});
 			},
 			//套餐过期
 			open(){
 				this.$refs.popup.open()
 			},
 			close(){
+				this.status=0
 				this.$refs.popup.close()
 			},
 			wxPay(pray_id){
+				uni.showLoading({
+				    title: '加载中',
+					mask:true
+				});
 				wx.login({
 				  success:(res)=>{
 					if (res.code) {
@@ -330,7 +335,7 @@
 										})
 									},
 									'complete':function(err2){
-										
+										uni.hideLoading();
 									}
 							})
 						})

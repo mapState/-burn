@@ -148,17 +148,58 @@ __webpack_require__.r(__webpack_exports__);
 var _uniRequest = _interopRequireDefault(__webpack_require__(/*! uni-request */ 8));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   onLaunch: function onLaunch() {
+    uni.showLoading({
+      title: '加载中',
+      mask: true });
+
+    var self = this;
     console.log('App Launch');
-    wx.loadFontFace({
-      family: 'book',
-      global: true,
-      source: 'url("https://www.csdc8.top/mini/book3500.ttf")',
-      success: function success(res) {
-        console.log('font load success', res);
-      },
-      fail: function fail(err) {
-        console.log('font load fail', err);
-      } });
+    var token = uni.getStorageSync('token') || '';
+    console.log(token);
+    if (token) {
+      self.getStatus();
+    } else {
+      wx.login({
+        success: function success(res) {
+          if (res.code) {
+            console.log(self);
+            self.$api.post('api/user/login', {
+              code: res.code }).
+            then(function (res) {
+              if (res.access_token) {
+                self.hasToken = true;
+              } else {
+                return;
+              }
+
+              if (!res.first) {
+                uni.setStorageSync('token', res.access_token);
+                uni.setStorageSync('user_id', res.user_id);
+                self.getStatus();
+              } else {
+
+              }
+            });
+          } else {
+            console.log('登录失败！' + res.errMsg);
+          }
+        },
+        fail: function fail() {
+          uni.hideLoading();
+        } });
+
+    }
+    // wx.loadFontFace({
+    //   family: 'book',
+    //   global:true,
+    //   source: 'url("https://www.csdc8.top/mini/book3500.ttf")',
+    //   success: res => {
+    //     console.log('font load success', res)
+    //   },
+    //   fail: err => {
+    //     console.log('font load fail', err)
+    //   }
+    // })
 
   },
   onShow: function onShow() {
@@ -170,6 +211,22 @@ var _uniRequest = _interopRequireDefault(__webpack_require__(/*! uni-request */ 
     console.log('App Hide');
   },
   methods: {
+    getStatus: function getStatus() {
+      this.$api.get('api/pray/show').then(function (res) {
+        console.log(res);
+        uni.setStorageSync('paryData', res.prayer);
+        if (res.status == 1) {
+          uni.redirectTo({
+            url: '/pages/package/package?detail=' + JSON.stringify(res.dojo) + '&status=1' });
+
+        } else if (res.status == 0) {
+          uni.redirectTo({
+            url: '/pages/package/package?detail=' + JSON.stringify(res.dojo) + '&expired=1' });
+
+        }
+        uni.hideLoading();
+      });
+    },
     //获取用户信息
     getInfo: function getInfo() {
       var token = uni.getStorageSync('token');

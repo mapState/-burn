@@ -5,11 +5,11 @@
 		<view class="btnBox">
 			<view class="btnBoxItem" @click="goChoseDojo(0)">
 				<image src="../../static/img/btn.png" class="btnImg" mode="aspectFill"></image>
-				<text class="btnText">为自己匹配道场</text>
+				<text class="btnText">为自己匹配本命财神</text>
 			</view>
 			<view class="btnBoxItem" @click="goChoseDojo(1)">
 				<image src="../../static/img/btn.png" class="btnImg" mode="aspectFill"></image>
-				<text class="btnText">为他人匹配道场</text>
+				<text class="btnText">为他人匹配本命财神</text>
 			</view>
 		</view>
 		<image src="../../static/img/menu.png" mode="aspectFill" class="menuIcon" @click="goDojoList"></image>
@@ -36,6 +36,17 @@
 				uni.navigateTo({
 					url:'/pages/chooseDojo/chooseDojo'
 				})
+				// wx.navigateToMiniProgram({
+				//   appId: 'wxe38308656658eec0',
+				//   path: 'pages/index/index',
+				//   extraData: {
+				//     foo: 'bar'
+				//   },
+				//   envVersion: 'develop',
+				//   success(res) {
+				//     // 打开成功
+				//   }
+				// })
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 
 .list{
-	width:700rpx;
+	width:674rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -10,14 +10,20 @@
 }
 .listItem{
 	width:324rpx;
-	padding:0 13rpx;
 	margin-bottom: 29rpx;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+.listItem:nth-child(2n){
+	margin-left:26rpx;
 }
 .listImg{
 	width:324rpx;
 	height:431rpx;
 	-webkit-border-radius:10rpx;
 	        border-radius:10rpx;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	margin-bottom: 26rpx;
 }
 .listItemText{

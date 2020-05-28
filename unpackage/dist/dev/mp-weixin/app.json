@@ -6,7 +6,10 @@
     "pages/chooseDojo/chooseDojo",
     "pages/birthday/birthday",
     "pages/matchDojo/matchDojo",
-    "pages/package/package"
+    "pages/package/package",
+    "pages/sex/sex",
+    "pages/name/name",
+    "pages/position/position"
   ],
   "subPackages": [],
   "window": {
@@ -16,5 +19,5 @@
     "backgroundColor": "#F8F8F8"
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap52.json"
+  "sitemapLocation": "sitemap23.json"
 }

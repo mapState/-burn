@@ -3,7 +3,7 @@
 		<image src="../../static/img/fua.png" mode="widthFix" class="bgImg"></image>
 		<view class="top">
 			<image src="../../static/img/border.png" mode="aspectFill" class="borderImg"></image>
-			<text class="title">本命星盘 福根无穷</text>
+			<text class="title">本命星盘  福报无穷</text>
 		</view>
 		<view class="want">
 			<view class="wantText">心中所求:</view>
@@ -11,7 +11,7 @@
 		<view class="wantList" v-if="wishList.length>0">
 			<text class="wantListItem" v-for="(item,index) in wishList" :key="index">{{item}}</text>
 		</view>
-		<template v-if="step===1">
+		<template>
 			<view class="selBox">
 				<view class="selBoxTxt">生辰八字:</view>
 				<!-- <view class="yang one" :class="radio===0?'selRadio':''" @click="selRadio(0)">
@@ -41,7 +41,7 @@
 				<text class="dSpan">时</text>
 				<input class="input" focus placeholder="请输入时辰" v-model="form.hour"/>
 			</view> -->
-			<view class="calendarBox" @click.stop="showDateDialog(2, 'number')">
+			<view class="calendarBox" @click.stop="showDateDialog(2, 'words')">
 				<!-- <input type="text" value="" placeholder-class="plClass" :disabled="true"
 				v-model="endDate" placeholder="" class="dateInput"/> -->
 				<view class="dateInput">
@@ -50,60 +50,12 @@
 				</view>
 			</view>
 		</template>
-		<template v-if="step===2">
-			<view class="want">
-				<view class="wantText">性别:</view>
-			</view>
-			<text v-for="(item,index) in sex" :key="index" @click="selSex(index)" class="sexItem"
-			:class="{'sexActive':index==sexIndex}">{{item}}</text>
-		</template>
-		<template v-if="step===3">
-			<view class="want">
-				<view class="wantText">出生方位：</view>
-			</view>
-			<view class="calendarBox" style="margin-bottom:60rpx;">
-				<pick-regions :defaultRegion="defaultRegionCode" @getRegion="handleGetRegion">
-					<!-- <input type="text" value="" placeholder-class="plClass" :disabled="true"
-					v-model="regionName" placeholder="请选择出生方位" class="dateInput"/> -->
-					<view class="dateInput">
-						<text class="plClass" v-if="regionName==''">请选择出生方位</text>
-						<text class="plClass" v-else>{{regionName}}</text>
-					</view>
-				</pick-regions>
-			</view>
-			<view class="want">
-				<view class="wantText">现居方位：</view>
-			</view>
-			<view class="calendarBox" style="margin-bottom:60rpx;">
-				<pick-regions :defaultRegion="defaultRegionCode" @getRegion="handleGetRegion1">
-					<!-- <input type="text" value="" placeholder-class="plClass" :disabled="true"
-					v-model="regionName1" placeholder="请选择现居方位" class="dateInput"/> -->
-					<view class="dateInput">
-						<text class="plClass" v-if="regionName1==''">请选择现居方位</text>
-						<text class="plClass" v-else>{{regionName1}}</text>
-					</view>
-				</pick-regions>
-			</view>
-		</template>
-		<template v-if="step===4">
-			<view class="nameBox" style="margin-top:60rpx;">
-				<text class="nameTitle">姓氏：</text>
-				<input type="text" value="" v-model="nameForom.surname" class="nameInput"/>
-			</view>
-			<view class="nameBox">
-				<text class="nameTitle">名讳：</text>
-				<input type="text" value="" v-model="nameForom.name" class="nameInput"/>
-			</view>
-		</template>
-		<view class="btnBox" @click="submit" v-else>
+		
+		<view class="btnBox" @click="submit">
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
 			<text class="btnText">确定</text>
 		</view>
-		<view class="btnBox" v-if="step==4">
-			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
-			<text class="btnText" @click="goMatchDojo">开始匹配本命财神道场</text>
-			<button class="getPhoneBtn" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" v-if="!hasPhone"></button>
-		</view>
+		
 		<!-- 日历组件 -->
 		<zan-calendar
 			:date="date" 
@@ -273,26 +225,19 @@
 			},
 			submit(){
 				console.log(this.form)
-				if(this.step==1){
-					if(this.birthday==''){
-						uni.showToast({
-							title:'请选择生辰',
-							icon:'none'
-						})
-						return
-					}
-				}else if(this.step==3){
-					if(this.region.length<=0||this.region1.length<=0){
-						uni.showToast({
-							title:'请选择方位',
-							icon:'none'
-						})
-						return
-					}
-				}else if(this.step==4){
-					return
+				if(this.birthday==''){
+					uni.showToast({
+						title:'请选择生辰',
+						icon:'none'
+					})
+					
+				}else{
+					uni.setStorageSync('date',this.birthday)
+					uni.setStorageSync('dateType',this.type)
+					uni.navigateTo({
+						url:'/pages/sex/sex'
+					})
 				}
-				this.step++
 			},
 			//示例，展示三种不同的选择调度
 			getType(type){

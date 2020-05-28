@@ -295,7 +295,7 @@ var _default =
           });
         } else {
           uni.showToast({
-            title: "必须求三项",
+            title: "福报无穷，可求三卦",
             icon: 'none' });
 
           return;
@@ -322,7 +322,7 @@ var _default =
           success: function success(res) {
             console.log(res);
             if (res.code) {
-              _this2.$api.post('/api/user/login', {
+              _this2.$api.post('/api/user/get_user_info', {
                 code: res.code,
                 avatar_url: info.detail.userInfo.avatarUrl,
                 nickname: info.detail.userInfo.nickName }).

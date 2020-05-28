@@ -92,11 +92,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components = {
-  pickRegions: function() {
-    return Promise.all(/*! import() | components/pick-regions/pick-regions */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/pick-regions/pick-regions")]).then(__webpack_require__.bind(null, /*! @/components/pick-regions/pick-regions.vue */ 83))
-  }
-}
+var components
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -134,55 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var zanCalendar = function zanCalendar() {Promise.all(/*! require.ensure | components/quick-calendar/calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/quick-calendar/calendar")]).then((function () {return resolve(__webpack_require__(/*! @/components/quick-calendar/calendar */ 89));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pickRegions = function pickRegions() {Promise.all(/*! require.ensure | components/pick-regions/pick-regions */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/pick-regions/pick-regions")]).then((function () {return resolve(__webpack_require__(/*! @/components/pick-regions/pick-regions.vue */ 83));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var zanCalendar = function zanCalendar() {Promise.all(/*! require.ensure | components/quick-calendar/calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/quick-calendar/calendar")]).then((function () {return resolve(__webpack_require__(/*! @/components/quick-calendar/calendar */ 107));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pickRegions = function pickRegions() {Promise.all(/*! require.ensure | components/pick-regions/pick-regions */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/pick-regions/pick-regions")]).then((function () {return resolve(__webpack_require__(/*! @/components/pick-regions/pick-regions.vue */ 116));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -409,26 +357,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     submit: function submit() {
       console.log(this.form);
-      if (this.step == 1) {
-        if (this.birthday == '') {
-          uni.showToast({
-            title: '请选择生辰',
-            icon: 'none' });
+      if (this.birthday == '') {
+        uni.showToast({
+          title: '请选择生辰',
+          icon: 'none' });
 
-          return;
-        }
-      } else if (this.step == 3) {
-        if (this.region.length <= 0 || this.region1.length <= 0) {
-          uni.showToast({
-            title: '请选择方位',
-            icon: 'none' });
 
-          return;
-        }
-      } else if (this.step == 4) {
-        return;
+      } else {
+        uni.setStorageSync('date', this.birthday);
+        uni.setStorageSync('dateType', this.type);
+        uni.navigateTo({
+          url: '/pages/sex/sex' });
+
       }
-      this.step++;
     },
     //示例，展示三种不同的选择调度
     getType: function getType(type) {

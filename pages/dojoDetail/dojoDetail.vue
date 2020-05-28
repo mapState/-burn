@@ -21,7 +21,7 @@
 			<view class="btnBox" v-if="showBtn">
 				<image src="../../static/img/btn.png" class="btnImg" mode="aspectFill"></image>
 				<view class="btnText" @click="open">
-					立即供奉
+					我要虔诚供奉
 				</view>
 			</view>
 		</view>
@@ -29,7 +29,7 @@
 			<view class="countdown">
 				<view class="countdownTop">
 					<image src="../../static/img/yl.png" mode="aspectFill" class="ylIcon"></image>
-					<text class="countdownTopText">供奉倒计时</text>
+					<text class="countdownTopText">心中默诵所求</text>
 				</view>
 				<view class="time">
 					<text class="timeNum">0{{time}}</text>s
@@ -73,27 +73,31 @@
 		methods: {
 			//供奉
 			goWorship(){
-				let user_id=uni.getStorageSync('paryData').user_id
-				let pray_id=uni.getStorageSync('paryData').id
-				this.$api.get('/api/pray/'+user_id+'/isend/'+pray_id).then((res)=>{
-					console.log(res)
-					uni.navigateTo({
-						url:'/pages/package/package?detail='+JSON.stringify(this.detail)+'&status=1'
-					})
-				}).catch((err)=>{
-					if(uni.getStorageSync('first')==0){
-						//窮鬼沒氪過金 第一次來
-						uni.navigateTo({
-							url:'/pages/package/package?detail='+JSON.stringify(this.detail)
-						})
-					}else{
-						uni.navigateTo({
-							url:'/pages/package/package?detail='+JSON.stringify(this.detail)+'&expired=1'
-						})
-					}
-					console.log(err)
-					
+				uni.navigateTo({
+					url:'/pages/package/package?detail='+JSON.stringify(this.detail)
 				})
+				// let user_id=uni.getStorageSync('paryData').user_id
+				// let pray_id=uni.getStorageSync('paryData').id
+				
+				// this.$api.get('/api/pray/'+user_id+'/isend/'+pray_id).then((res)=>{
+				// 	console.log(res)
+				// 	uni.navigateTo({
+				// 		url:'/pages/package/package?detail='+JSON.stringify(this.detail)+'&status=1'
+				// 	})
+				// }).catch((err)=>{
+				// 	if(uni.getStorageSync('first')==0){
+				// 		//窮鬼沒氪過金 第一次來
+				// 		uni.navigateTo({
+				// 			url:'/pages/package/package?detail='+JSON.stringify(this.detail)
+				// 		})
+				// 	}else{
+				// 		uni.navigateTo({
+				// 			url:'/pages/package/package?detail='+JSON.stringify(this.detail)+'&expired=1'
+				// 		})
+				// 	}
+				// 	console.log(err)
+					
+				// })
 			},
 			goBack(){
 				uni.navigateBack({
@@ -206,7 +210,6 @@
 	}
 	.t1{
 		font-size:32rpx;
-		font-family:書體坊顏體㊣;
 		font-weight:400;
 		color:rgba(147,92,65,1);
 	}

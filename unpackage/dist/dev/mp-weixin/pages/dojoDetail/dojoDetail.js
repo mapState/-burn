@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniPopup: function() {
-    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 74))
+    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 98))
   }
 }
 var render = function() {
@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 74));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 98));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -208,28 +208,32 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     //供奉
-    goWorship: function goWorship() {var _this = this;
-      var user_id = uni.getStorageSync('paryData').user_id;
-      var pray_id = uni.getStorageSync('paryData').id;
-      this.$api.get('/api/pray/' + user_id + '/isend/' + pray_id).then(function (res) {
-        console.log(res);
-        uni.navigateTo({
-          url: '/pages/package/package?detail=' + JSON.stringify(_this.detail) + '&status=1' });
+    goWorship: function goWorship() {
+      uni.navigateTo({
+        url: '/pages/package/package?detail=' + JSON.stringify(this.detail) });
 
-      }).catch(function (err) {
-        if (uni.getStorageSync('first') == 0) {
-          //窮鬼沒氪過金 第一次來
-          uni.navigateTo({
-            url: '/pages/package/package?detail=' + JSON.stringify(_this.detail) });
+      // let user_id=uni.getStorageSync('paryData').user_id
+      // let pray_id=uni.getStorageSync('paryData').id
 
-        } else {
-          uni.navigateTo({
-            url: '/pages/package/package?detail=' + JSON.stringify(_this.detail) + '&expired=1' });
+      // this.$api.get('/api/pray/'+user_id+'/isend/'+pray_id).then((res)=>{
+      // 	console.log(res)
+      // 	uni.navigateTo({
+      // 		url:'/pages/package/package?detail='+JSON.stringify(this.detail)+'&status=1'
+      // 	})
+      // }).catch((err)=>{
+      // 	if(uni.getStorageSync('first')==0){
+      // 		//窮鬼沒氪過金 第一次來
+      // 		uni.navigateTo({
+      // 			url:'/pages/package/package?detail='+JSON.stringify(this.detail)
+      // 		})
+      // 	}else{
+      // 		uni.navigateTo({
+      // 			url:'/pages/package/package?detail='+JSON.stringify(this.detail)+'&expired=1'
+      // 		})
+      // 	}
+      // 	console.log(err)
 
-        }
-        console.log(err);
-
-      });
+      // })
     },
     goBack: function goBack() {
       uni.navigateBack({

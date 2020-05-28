@@ -168,6 +168,17 @@ var _default =
       uni.navigateTo({
         url: '/pages/chooseDojo/chooseDojo' });
 
+      // wx.navigateToMiniProgram({
+      //   appId: 'wxe38308656658eec0',
+      //   path: 'pages/index/index',
+      //   extraData: {
+      //     foo: 'bar'
+      //   },
+      //   envVersion: 'develop',
+      //   success(res) {
+      //     // 打开成功
+      //   }
+      // })
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
