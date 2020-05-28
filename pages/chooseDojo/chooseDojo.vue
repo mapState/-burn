@@ -169,17 +169,16 @@
 					  if (res.code) {
 						this.$api.post('/api/user/login',{
 							code:res.code,
-							iv:info.detail.iv,
 							avatar_url: info.detail.userInfo.avatarUrl,
 							nickname: info.detail.userInfo.nickName,
 						}).then((res)=>{
 							console.log(res)
-							if(res.token){
+							if(res.access_token){
 								this.hasToken=true
 							}else{
 								return
 							}
-							uni.setStorageSync('token',res.token)
+							uni.setStorageSync('token',res.access_token)
 							uni.setStorageSync('user_id',res.user_id)
 							this.goMatch()
 							// uni.setStorage({

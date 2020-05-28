@@ -28,13 +28,16 @@ uniRequest.interceptors.request.use(
 		}else if(response.status===401){
 				uni.showToast({
 					title:'登录过期',
-					icon:"none"
+					icon:"none",
+					duration:500
 				})
 				 uni.clearStorageSync();
-				 uni.reLaunch({
-				     url: '/pages/index/index'
-				 });
-				return Promise.reject(response.data.data);
+				 setTimeout(()=>{
+					 uni.reLaunch({
+					     url: '/pages/index/index'
+					 });
+					 return Promise.reject(response.data.data);
+				 },1500)
 		}
 		else{
 			uni.showToast({

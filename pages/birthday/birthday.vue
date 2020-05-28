@@ -102,7 +102,7 @@
 		<view class="btnBox" v-if="step==4">
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
 			<text class="btnText" @click="goMatchDojo">开始匹配本命财神道场</text>
-			<!-- <button class="getPhoneBtn" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber"></button> -->
+			<button class="getPhoneBtn" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" v-if="!hasPhone"></button>
 		</view>
 		<!-- 日历组件 -->
 		<zan-calendar
@@ -158,7 +158,8 @@
 					surname:'',
 					name:''
 				},
-				birthday:''
+				birthday:'',
+				hasPhone:false
 			}
 		},
 		computed:{
@@ -179,6 +180,7 @@
 			        this.wishList=res.data||[]
 			    }
 			});
+			this.hasPhone = uni.getStorageSync('phone') ? true : false
 		},
 		methods: {
 		  // 获取手机号码
@@ -203,9 +205,26 @@
 					success: (res) => {
 					  if (res.code) {
 						console.log(res)
-						// this.$api.post('',{
-							
-						// })
+						this.$api.post('/api/user/get_user_phone',{
+							code:res.code,
+							iv:e.detail.iv,
+							encryptedData:e.detail.encryptedData
+						}).then((res)=>{
+							console.log(res)
+							this.hasPhone=true
+							uni.setStorage({
+							    key: 'phone',
+							    data: '1',
+							    success:()=>{
+							        this.goMatchDojo()
+							    },
+								fail:(err)=>{
+									console.log(err)
+								}
+							});
+						})
+					  }else{
+						  
 					  }
 					},
 				})
