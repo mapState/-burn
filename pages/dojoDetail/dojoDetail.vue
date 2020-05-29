@@ -73,7 +73,7 @@
 		methods: {
 			//供奉
 			goWorship(){
-				uni.navigateTo({
+				uni.reLaunch()({
 					url:'/pages/package/package?detail='+JSON.stringify(this.detail)
 				})
 				// let user_id=uni.getStorageSync('paryData').user_id

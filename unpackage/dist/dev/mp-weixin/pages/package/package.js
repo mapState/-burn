@@ -289,19 +289,24 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     //上香啊
-    jin: function jin() {
+    jin: function jin() {var _this2 = this;
       var prayer = uni.getStorageSync('paryData').id;
       this.$api.put('/api/prayer/' + prayer).then(function (res) {
+        console.log(res);
         uni.showToast({
           title: '上香成功',
           icon: 'none' });
 
       }).catch(function (err) {
-        console.log('jx catch');
+        console.log(err);
+        if (err.code == 500) {
+          _this2.open();
+          _this2.status = 0;
+        }
       });
     },
     //获取套餐
-    getPackage: function getPackage() {var _this2 = this;
+    getPackage: function getPackage() {var _this3 = this;
       this.$api.get('/api/pray', {
         params: {
           limit: this.limit,
@@ -309,21 +314,21 @@ __webpack_require__.r(__webpack_exports__);
 
       then(function (res) {
         console.log(res);
-        _this2.packageList = _this2.packageList.concat(res.data);
+        _this3.packageList = _this3.packageList.concat(res.data);
       });
     },
     //获取分享配置
-    getShareInfo: function getShareInfo() {var _this3 = this;
+    getShareInfo: function getShareInfo() {var _this4 = this;
       this.$api.get('/api/user/share').then(function (res) {
         console.log(res);
-        _this3.shareInfo = res;
+        _this4.shareInfo = res;
       });
     },
     closePoser: function closePoser() {
       this.$refs.poster.close();
     },
     //生成海报
-    getPoster: function getPoster() {var _this4 = this;
+    getPoster: function getPoster() {var _this5 = this;
       this.$refs.share.close();
       uni.showLoading({
         title: '海报生成中...' });
@@ -337,16 +342,16 @@ __webpack_require__.r(__webpack_exports__);
         src: this.shareInfo.poser,
         success: function success(res) {
           console.log(res);
-          context.drawImage(_this4.bgPath, 0, 0, _this4.width, _this4.height);
-          context.drawImage(res.path, 0, 0, 226 * _this4.pixelRatio, 210 * _this4.pixelRatio);
-          context.setFontSize(12 * _this4.pixelRatio);
+          context.drawImage(_this5.bgPath, 0, 0, _this5.width, _this5.height);
+          context.drawImage(res.path, 0, 0, 226 * _this5.pixelRatio, 210 * _this5.pixelRatio);
+          context.setFontSize(12 * _this5.pixelRatio);
           context.setFillStyle('#935C41');
           context.setTextAlign('center');
-          var text = _this4.shareInfo.title;
+          var text = _this5.shareInfo.title;
           if (text.length > 16) {
             text = text.substr(0, 16) + '...';
           }
-          context.fillText(text, _this4.width / 2, 226 * _this4.pixelRatio);
+          context.fillText(text, _this5.width / 2, 226 * _this5.pixelRatio);
           // if(this.pixelRatio===2){
           // 	context.drawImage(this.god,0,0,206*this.pixelRatio,159*this.pixelRatio,10*this.pixelRatio,51*this.pixelRatio,206*this.pixelRatio,159*this.pixelRatio);
           // }else{
@@ -366,16 +371,16 @@ __webpack_require__.r(__webpack_exports__);
                   canvasId: 'myCanvas',
                   x: 0, //指定的画布区域的左上角横坐标	
                   y: 0, //指定的画布区域的左上角纵坐标	
-                  width: _this4.width, //指定的画布区域的宽度
-                  height: _this4.height, //指定的画布区域的高度
-                  destWidth: _this4.width, //输出的图片的宽度 
-                  destHeight: _this4.height, //输出的图片的高度
+                  width: _this5.width, //指定的画布区域的宽度
+                  height: _this5.height, //指定的画布区域的高度
+                  destWidth: _this5.width, //输出的图片的宽度 
+                  destHeight: _this5.height, //输出的图片的高度
                   success: function success(res) {
                     var tempFilePath = res.tempFilePath;
-                    _this4.tmpImg = tempFilePath;
+                    _this5.tmpImg = tempFilePath;
                     console.log(tempFilePath);
                     uni.hideLoading();
-                    _this4.$refs.poster.open();
+                    _this5.$refs.poster.open();
                   },
                   fail: function fail(res) {
                     console.log(res);
@@ -441,7 +446,7 @@ __webpack_require__.r(__webpack_exports__);
       this.status = 0;
       this.$refs.popup.close();
     },
-    wxPay: function wxPay(pray_id) {var _this5 = this;
+    wxPay: function wxPay(pray_id) {var _this6 = this;
       uni.showLoading({
         title: '加载中',
         mask: true });
@@ -449,8 +454,8 @@ __webpack_require__.r(__webpack_exports__);
       wx.login({
         success: function success(res) {
           if (res.code) {
-            _this5.$api.post('/api/wechat/pay', {
-              dojo_id: _this5.detail.id,
+            _this6.$api.post('/api/wechat/pay', {
+              dojo_id: _this6.detail.id,
               pray_id: pray_id,
               prayer_id: uni.getStorageSync('paryData').id }).
             then(function (info) {
@@ -469,7 +474,7 @@ __webpack_require__.r(__webpack_exports__);
                     title: "支付成功",
                     duration: 1200 });
 
-                  _this5.status = 1;
+                  _this6.status = 1;
                 },
                 'fail': function fail(err1) {
                   console.log("支付失败");

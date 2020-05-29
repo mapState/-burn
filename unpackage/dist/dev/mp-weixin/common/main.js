@@ -31,7 +31,7 @@ function (err) {
 
 //响应拦截
 _uniRequest.default.interceptors.response.use(function (response) {
-  //console.log(response)
+  console.log(response);
   if (response.status == 200 && response.data.code === 200) {
     return Promise.resolve(response.data.data);
   } else if (response.status === 401) {
@@ -53,7 +53,7 @@ _uniRequest.default.interceptors.response.use(function (response) {
       title: response.data.message,
       icon: "none" });
 
-    return Promise.reject(response.data.data);
+    return Promise.reject(response.data);
   }
 }, function (error) {
   uni.hideLoading();

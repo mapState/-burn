@@ -156,12 +156,17 @@
 			jin(){
 				let prayer=uni.getStorageSync('paryData').id
 				this.$api.put('/api/prayer/'+prayer).then((res)=>{
+					console.log(res)
 					uni.showToast({
 						title:'上香成功',
 						icon:'none'
 					})
 				}).catch((err)=>{
-					console.log('jx catch')
+					console.log(err)
+					if(err.code==500){
+						this.open()
+						this.status=0
+					}
 				})
 			},
 			//获取套餐

@@ -151,14 +151,32 @@ __webpack_require__.r(__webpack_exports__);
 var _default =
 {
   data: function data() {
-    return {};
+    return {
+      shareInfo: {
+        title: '',
+        poser: '' } };
 
 
   },
-  onLoad: function onLoad() {
+  onShow: function onShow() {
+    this.getShareInfo();
+  },
+  onShareAppMessage: function onShareAppMessage(res) {
+    if (res.from === 'button') {// 来自页面内分享按钮
+      console.log(res.target);
+    }
+    return {
+      title: this.shareInfo.title,
+      path: '/pages/index/index' };
 
   },
   methods: {
+    getShareInfo: function getShareInfo() {var _this = this;
+      this.$api.get('/api/user/share').then(function (res) {
+        console.log(res);
+        _this.shareInfo = res;
+      });
+    },
     goDojoList: function goDojoList() {
       uni.navigateTo({
         url: '/pages/dojoList/dojoList' });
