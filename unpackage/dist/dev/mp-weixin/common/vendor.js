@@ -757,7 +757,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1849,18 +1849,18 @@ var calendar = {
   submit: function submit() {var lunar = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'solar';var year = arguments.length > 1 ? arguments[1] : undefined;var month = arguments.length > 2 ? arguments[2] : undefined;var day = arguments.length > 3 ? arguments[3] : undefined;var hour = arguments.length > 4 ? arguments[4] : undefined;var min = arguments.length > 5 ? arguments[5] : undefined;var isHourShow = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : true;var isMinShow = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : true;
     var hourArray = [
     // '未知时辰', 
-    '23-0子时',
-    '1-2丑时',
-    '3-4寅时',
-    '5-6卯时',
-    '7-8辰时',
-    '9-10巳时',
-    '11-12午时',
-    '13-14未时',
-    '15-16申时',
-    '17-18酉时',
-    '19-20戌时',
-    '21-22亥时'];
+    '23-1子时',
+    '1-3丑时',
+    '3-5寅时',
+    '5-7卯时',
+    '7-9辰时',
+    '9-11巳时',
+    '11-13午时',
+    '13-15未时',
+    '15-17申时',
+    '17-19酉时',
+    '19-21戌时',
+    '21-23亥时'];
 
 
     if (lunar === 'solar') {
@@ -1999,18 +1999,18 @@ var calendar = {
     if (isHourShow) {
       hourArray = [
       // '未知时辰', 
-      '23-0子时',
-      '1-2丑时',
-      '3-4寅时',
-      '5-6卯时',
-      '7-8辰时',
-      '9-10巳时',
-      '11-12午时',
-      '13-14未时',
-      '15-16申时',
-      '17-18酉时',
-      '19-20戌时',
-      '21-22亥时'];
+      '23-1子时',
+      '1-3丑时',
+      '3-5寅时',
+      '5-7卯时',
+      '7-9辰时',
+      '9-11巳时',
+      '11-13午时',
+      '13-15未时',
+      '15-17申时',
+      '17-19酉时',
+      '19-21戌时',
+      '21-23亥时'];
 
 
     }
@@ -2139,18 +2139,18 @@ var calendar = {
     if (isHourShow) {
       hourArray = [
       // '未知时辰', 
-      '23-0子时',
-      '1-2丑时',
-      '3-4寅时',
-      '5-6卯时',
-      '7-8辰时',
-      '9-10巳时',
-      '11-12午时',
-      '13-14未时',
-      '15-16申时',
-      '17-18酉时',
-      '19-20戌时',
-      '21-22亥时'];
+      '23-1子时',
+      '1-3丑时',
+      '3-5寅时',
+      '5-7卯时',
+      '7-9辰时',
+      '9-11巳时',
+      '11-13午时',
+      '13-15未时',
+      '15-17申时',
+      '17-19酉时',
+      '19-21戌时',
+      '21-23亥时'];
 
     }
 
@@ -8582,7 +8582,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8603,14 +8603,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8686,7 +8686,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
