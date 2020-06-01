@@ -110,12 +110,13 @@
 	margin-top:41rpx;
 }
 .t2{
-	width:627rpx;
+	width:100%;
 	font-size:30rpx;
 	font-family:'book';
 	font-weight:400;
 	color:rgba(147,92,65,1);
 	margin-bottom: 29rpx;
+	text-align: center;
 }
 .godImg{
 	width:329rpx;
@@ -226,5 +227,8 @@
 	width:2rpx;
 	height:26rpx;
 	background:rgba(254,248,224,1);
+}
+.t2 ._img{
+	width:100% !important;
 }
 

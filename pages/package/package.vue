@@ -117,7 +117,10 @@
 			this.getShareInfo()
 			this.getPackage()
 			try{
-				this.detail=JSON.parse(params.detail)
+				let detail=JSON.parse(params.detail)
+				detail.content=decodeURIComponent(detail.content)
+				this.detail=detail
+				this.rightTitle=this.detail.info.substr(0,8)
 				this.imgUrl=this.detail.main_image
 			}catch(e){
 				//TODO handle the exception
@@ -126,7 +129,6 @@
 			    key: 'name',
 			    success: (res)=> {
 			        this.leftTitle='庇佑'+res.data+'心想事成'
-					this.rightTitle=this.detail.info.substr(0,8)
 			    }
 			});
 			console.log(params)

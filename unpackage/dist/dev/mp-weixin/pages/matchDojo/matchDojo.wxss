@@ -85,6 +85,7 @@ page{
 	font-family:'book';
 	font-weight:400;
 	color:rgba(149,95,68,1);
+	text-align: center;
 }
 .info{
 	font-size:60rpx;

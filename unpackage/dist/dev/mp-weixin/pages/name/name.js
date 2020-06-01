@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var zanCalendar = function zanCalendar() {Promise.all(/*! require.ensure | components/quick-calendar/calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/quick-calendar/calendar")]).then((function () {return resolve(__webpack_require__(/*! @/components/quick-calendar/calendar */ 107));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pickRegions = function pickRegions() {Promise.all(/*! require.ensure | components/pick-regions/pick-regions */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/pick-regions/pick-regions")]).then((function () {return resolve(__webpack_require__(/*! @/components/pick-regions/pick-regions.vue */ 116));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var zanCalendar = function zanCalendar() {Promise.all(/*! require.ensure | components/quick-calendar/calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/quick-calendar/calendar")]).then((function () {return resolve(__webpack_require__(/*! @/components/quick-calendar/calendar */ 117));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pickRegions = function pickRegions() {Promise.all(/*! require.ensure | components/pick-regions/pick-regions */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/pick-regions/pick-regions")]).then((function () {return resolve(__webpack_require__(/*! @/components/pick-regions/pick-regions.vue */ 126));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -254,34 +254,61 @@ __webpack_require__.r(__webpack_exports__);
 
         return false;
       } else {
-        // 解密手机号接口
-        wx.login({
+        wx.checkSession({
           success: function success(res) {
-            if (res.code) {
+            console.log("处于登录态");
+            _this2.$api.post('/api/user/get_user_phone', {
+              user_id: uni.getStorageSync('user_id'),
+              session_key: uni.getStorageSync('session_key'),
+              iv: e.detail.iv,
+              encryptedData: e.detail.encryptedData }).
+            then(function (res) {
               console.log(res);
-              _this2.$api.post('/api/user/get_user_phone', {
-                code: res.code,
-                iv: e.detail.iv,
-                encryptedData: e.detail.encryptedData }).
-              then(function (res) {
-                console.log(res);
-                _this2.hasPhone = true;
-                uni.setStorage({
-                  key: 'phone',
-                  data: '1',
-                  success: function success() {
-                    _this2.goMatchDojo();
-                  },
-                  fail: function fail(err) {
-                    console.log(err);
-                  } });
+              _this2.hasPhone = true;
+              uni.setStorage({
+                key: 'phone',
+                data: '1',
+                success: function success() {
+                  _this2.goMatchDojo();
+                },
+                fail: function fail(err) {
+                  console.log(err);
+                } });
 
-              });
-            } else {
+            });
+          },
+          fail: function fail(res) {
+            console.log("需要重新登录");
+            wx.login({
+              success: function success(res) {
+                if (res.code) {
+                  console.log(res);
+                  _this2.$api.post('/api/user/get_user_phone', {
+                    code: res.code,
+                    iv: e.detail.iv,
+                    encryptedData: e.detail.encryptedData }).
+                  then(function (res) {
+                    console.log(res);
+                    _this2.hasPhone = true;
+                    uni.setStorage({
+                      key: 'phone',
+                      data: '1',
+                      success: function success() {
+                        _this2.goMatchDojo();
+                      },
+                      fail: function fail(err) {
+                        console.log(err);
+                      } });
 
-            }
+                  });
+                } else {
+
+                }
+              } });
+
           } });
 
+        // 解密手机号接口
       }
     },
     goMatchDojo: function goMatchDojo() {var _this3 = this;
@@ -312,8 +339,9 @@ __webpack_require__.r(__webpack_exports__);
         uni.setStorageSync('paryData', res.prayer);
         uni.setStorageSync('name', _this3.nameForom.surname + _this3.nameForom.name);
         uni.setStorageSync('first', res.first);
-        uni.redirectTo({
-          url: '/pages/matchDojo/matchDojo?detail=' + JSON.stringify(res.dojo) });
+        uni.setStorageSync('detail', res.dojo);
+        uni.navigateTo({
+          url: '/pages/matchDojo/matchDojo' });
 
       });
     },

@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   pickRegions: function() {
-    return Promise.all(/*! import() | components/pick-regions/pick-regions */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/pick-regions/pick-regions")]).then(__webpack_require__.bind(null, /*! @/components/pick-regions/pick-regions.vue */ 116))
+    return Promise.all(/*! import() | components/pick-regions/pick-regions */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/pick-regions/pick-regions")]).then(__webpack_require__.bind(null, /*! @/components/pick-regions/pick-regions.vue */ 126))
   }
 }
 var render = function() {
@@ -134,7 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var zanCalendar = function zanCalendar() {Promise.all(/*! require.ensure | components/quick-calendar/calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/quick-calendar/calendar")]).then((function () {return resolve(__webpack_require__(/*! @/components/quick-calendar/calendar */ 107));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pickRegions = function pickRegions() {Promise.all(/*! require.ensure | components/pick-regions/pick-regions */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/pick-regions/pick-regions")]).then((function () {return resolve(__webpack_require__(/*! @/components/pick-regions/pick-regions.vue */ 116));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var zanCalendar = function zanCalendar() {Promise.all(/*! require.ensure | components/quick-calendar/calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/quick-calendar/calendar")]).then((function () {return resolve(__webpack_require__(/*! @/components/quick-calendar/calendar */ 117));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var pickRegions = function pickRegions() {Promise.all(/*! require.ensure | components/pick-regions/pick-regions */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/pick-regions/pick-regions")]).then((function () {return resolve(__webpack_require__(/*! @/components/pick-regions/pick-regions.vue */ 126));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 

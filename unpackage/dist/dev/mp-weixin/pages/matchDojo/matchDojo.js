@@ -172,14 +172,20 @@ var _default =
         _this.wishList = res.data || [];
       } });
 
-    this.detail = JSON.parse(params.detail);
+    uni.getStorage({
+      key: 'detail',
+      success: function success(res) {
+        console.log(res.data);
+        _this.detail = res.data || [];
+      } });
+
   },
   methods: {
     goDojoDetail: function goDojoDetail() {
       var detail = _objectSpread({}, this.detail);
       detail.content = encodeURIComponent(detail.content);
       uni.navigateTo({
-        url: "/pages/dojoDetail/dojoDetail?type=1&&detail=" + JSON.stringify(this.detail) });
+        url: "/pages/dojoDetail/dojoDetail?type=1&detail=" + JSON.stringify(detail) });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

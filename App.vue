@@ -21,13 +21,14 @@
 							}else{
 								return
 							}
-							
+							uni.setStorageSync('token',res.access_token)
+							uni.setStorageSync('user_id',res.user_id)
+							uni.setStorageSync('session_key',res.session_key)
 							if (!res.first) {
-								uni.setStorageSync('token',res.access_token)
-								uni.setStorageSync('user_id',res.user_id)
+								
 								self.getStatus()
 							}else{
-								
+								uni.setStorageSync('first',1)
 							}
 						})
 				    } else {
@@ -63,13 +64,15 @@
 				this.$api.get('api/pray/show').then((res)=>{
 					console.log(res)
 					uni.setStorageSync('paryData',res.prayer)
+					let detail={...res.dojo}
+					detail.content=encodeURIComponent(detail.content)
 					if(res.status==1){
 						uni.redirectTo({
-						    url:'/pages/package/package?detail='+JSON.stringify(res.dojo)+'&status=1'
+						    url:'/pages/package/package?detail='+JSON.stringify(detail)+'&status=1'
 						});
 					}else if(res.status==0){
 						uni.redirectTo({
-							url:'/pages/package/package?detail='+JSON.stringify(res.dojo)+'&expired=1'
+							url:'/pages/package/package?detail='+JSON.stringify(detail)+'&expired=1'
 						})
 					}
 				})

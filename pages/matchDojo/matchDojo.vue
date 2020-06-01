@@ -40,14 +40,20 @@
 			        this.wishList=res.data||[]
 			    }
 			});
-			this.detail=JSON.parse(params.detail)
+			uni.getStorage({
+			    key: 'detail',
+			    success: (res)=>{
+					console.log(res.data)
+			        this.detail=res.data||[]
+			    }
+			});
 		},
 		methods: {
 			goDojoDetail(){
 				let detail={...this.detail}
 				detail.content=encodeURIComponent(detail.content)
 				uni.navigateTo({
-					url:"/pages/dojoDetail/dojoDetail?type=1&&detail="+JSON.stringify(this.detail)
+					url:"/pages/dojoDetail/dojoDetail?type=1&detail="+JSON.stringify(detail)
 				})
 			}
 		}
@@ -136,6 +142,7 @@
 		font-family:'book';
 		font-weight:400;
 		color:rgba(149,95,68,1);
+		text-align: center;
 	}
 	.info{
 		font-size:60rpx;

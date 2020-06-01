@@ -122,8 +122,32 @@
 			  });
 			  return false;
 			} else {
-				// 解密手机号接口
-				 wx.login({
+				wx.checkSession({
+				　　　　success: (res)=>{
+				　　　　　　console.log("处于登录态");
+				this.$api.post('/api/user/get_user_phone',{
+					user_id:uni.getStorageSync('user_id'),
+					session_key:uni.getStorageSync('session_key'),
+					iv:e.detail.iv,
+					encryptedData:e.detail.encryptedData
+				}).then((res)=>{
+					console.log(res)
+					this.hasPhone=true
+					uni.setStorage({
+					    key: 'phone',
+					    data: '1',
+					    success:()=>{
+					        this.goMatchDojo()
+					    },
+						fail:(err)=>{
+							console.log(err)
+						}
+					});
+				})
+				　　　　},
+				　　　　fail: (res)=>{
+				　　　　　　console.log("需要重新登录");
+				　　　　　　wx.login({
 					success: (res) => {
 					  if (res.code) {
 						console.log(res)
@@ -150,6 +174,9 @@
 					  }
 					},
 				})
+				　　　　}
+				　　})
+				// 解密手机号接口
 			}
 		  },
 			goMatchDojo(){
@@ -180,8 +207,9 @@
 					uni.setStorageSync('paryData',res.prayer)
 					uni.setStorageSync('name',this.nameForom.surname+this.nameForom.name)
 					uni.setStorageSync('first',res.first)
-					uni.redirectTo({
-						url:'/pages/matchDojo/matchDojo?detail='+JSON.stringify(res.dojo)
+					uni.setStorageSync('detail',res.dojo)
+					uni.navigateTo({
+						url:'/pages/matchDojo/matchDojo'
 					})
 				})
 			},

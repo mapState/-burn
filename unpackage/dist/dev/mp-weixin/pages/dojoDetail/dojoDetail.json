@@ -1,6 +1,7 @@
 {
   "navigationStyle": "custom",
   "usingComponents": {
+    "jyf-parser": "/components/jyf-parser/jyf-parser",
     "uni-popup": "/components/uni-popup/uni-popup"
   }
 }

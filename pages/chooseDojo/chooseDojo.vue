@@ -109,7 +109,7 @@
 		<view class="btnBox">
 			<image src="../../static/img/btn.png" mode="aspectFill" class="btnImg"></image>
 			<text class="btnTxt" @click="goMatch">匹配本命财神道场</text>
-			<button open-type="getUserInfo" @getuserinfo="getUserInfo" class="getUserBtn" v-if="!hasToken"></button>
+			<button open-type="getUserInfo" @getuserinfo="getUserInfo" class="getUserBtn" v-if="hasToken"></button>
 			
 		</view>
 	</view>
@@ -128,7 +128,7 @@
 
 		},
 		onShow() {
-			this.hasToken = uni.getStorageSync('token') ? true : false
+			this.hasToken = uni.getStorageSync('first') ? true : false
 		},
 		methods: {
 			goMatch() {
@@ -163,36 +163,16 @@
 				console.log(info);
 				if (info.detail.userInfo) {
 				  console.log("点击了同意授权");
-				  wx.login({
-					success: (res)=>{
-						console.log(res)
-					  if (res.code) {
-						this.$api.post('/api/user/get_user_info',{
-							code:res.code,
-							avatar_url: info.detail.userInfo.avatarUrl,
-							nickname: info.detail.userInfo.nickName,
-						}).then((res)=>{
-							console.log(res)
-							if(res.access_token){
-								this.hasToken=true
-							}else{
-								return
-							}
-							uni.setStorageSync('token',res.access_token)
-							uni.setStorageSync('user_id',res.user_id)
-							this.goMatch()
-							// uni.setStorage({
-							//     key: 'user_id',
-							//     data: res.user_id,
-							//     success:()=>{
-							// 		console.log('user_id set success')
-							//     }
-							// });
-						})
-					  } else {
-						console.log("授权失败");
-					  }
-					},
+				  this.$api.post('/api/user/get_user_info',{
+				  	user_id:uni.getStorageSync('user_id'),
+				  	avatar_url: info.detail.userInfo.avatarUrl,
+				  	nickname: info.detail.userInfo.nickName,
+				  }).then((res)=>{
+				  	console.log(res)
+				  	
+				
+				  	this.goMatch()
+				  	
 				  })
 				} else {
 				  console.log("点击了拒绝授权");

@@ -13,8 +13,10 @@
 				<text class="t1">福生无量天尊法无边</text>
 				<image src="../../static/tmp/eg.png" mode="aspectFill" class="egImg"></image>
 			</view>
-			<view class="t2">
-				<rich-text :nodes="detail.content"></rich-text>
+			<view class="t2" v-if="detail.content">
+				<!-- <rich-text :nodes="detail.content"></rich-text> -->
+				<!-- <u-parse :content="detail.content" /> -->
+				<jyf-parser :html="detail.content" ref="article"></jyf-parser>
 				<!-- 财神共有五个方位，每个方位都有一只龙五爷的眼睛，佛家称之为“五眼”，即肉眼、天眼、法眼、慧眼和佛眼。五眼，观五行：金木水火土；审五蕴：色受想行识。大殿还立有八根财柱，分别代表龙五爷开示众生如何正当求财的八大法门，信众依据法门开示，树立正确的财富观，就能求财如意。 -->
 			</view>
 			<image src="../../static/tmp/gossip.png" mode="aspectFill" class="godImg"></image>
@@ -46,8 +48,9 @@
 
 <script>
 	import uniPopup from '@/components/uni-popup/uni-popup.vue'
+	import jyfParser from '@/components/jyf-parser/jyf-parser';
 	export default {
-		components: {uniPopup},
+		components: {uniPopup,jyfParser},
 		data() {
 			return {
 				time:6,
@@ -73,8 +76,10 @@
 		methods: {
 			//供奉
 			goWorship(){
+				let detail={...this.detail}
+				detail.content=encodeURIComponent(detail.content)
 				uni.reLaunch({
-					url:'/pages/package/package?detail='+JSON.stringify(this.detail)
+					url:'/pages/package/package?detail='+JSON.stringify(detail)
 				})
 				// let user_id=uni.getStorageSync('paryData').user_id
 				// let pray_id=uni.getStorageSync('paryData').id
@@ -219,13 +224,15 @@
 		margin-top:41rpx;
 	}
 	.t2{
-		width:627rpx;
+		width:100%;
 		font-size:30rpx;
 		font-family:'book';
 		font-weight:400;
 		color:rgba(147,92,65,1);
 		margin-bottom: 29rpx;
+		text-align: center;
 	}
+	
 	.godImg{
 		width:329rpx;
 		height: 257rpx;
@@ -315,5 +322,8 @@
 		width:2rpx;
 		height:26rpx;
 		background:rgba(254,248,224,1);
+	}
+	.t2 img{
+		width:100% !important;
 	}
 </style>
