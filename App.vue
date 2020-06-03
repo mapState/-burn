@@ -2,64 +2,65 @@
 	import axios from 'uni-request';
 	export default {
 		onLaunch: function() {
-			let self = this;
-			console.log('App Launch')
-			let token = uni.getStorageSync('token')||''
-			console.log(token)
-			if(token){
-				self.getStatus()
-			}else{
-				wx.login({
-				  success (res) {
-				    if (res.code) {
-						console.log(self)
-						self.$api.post('api/user/login',{
-							code:res.code
-						}).then((res)=>{
-							if(res.access_token){
-								self.hasToken=true
-							}else{
-								return
-							}
-							uni.setStorageSync('token',res.access_token)
-							uni.setStorageSync('user_id',res.user_id)
-							uni.setStorageSync('session_key',res.session_key)
-							if (!res.first) {
-								
-								self.getStatus()
-							}else{
-								uni.setStorageSync('first',1)
-							}
-						})
-				    } else {
-				      console.log('登录失败！' + res.errMsg)
-				    }
-				  }
-				 
-				})
-			}
-			// wx.loadFontFace({
-			//   family: 'book',
-			//   global:true,
-			//   source: 'url("https://www.csdc8.top/mini/book3500.ttf")',
-			//   success: res => {
-			//     console.log('font load success', res)
-			//   },
-			//   fail: err => {
-			//     console.log('font load fail', err)
-			//   }
-			// })
 			
 		},
 		onShow: function() {
 			this.autoUpdate()
 			console.log('App Show')
-			//this.getInfo()
+			this.show()
 		},
 		onHide: function() {
 			console.log('App Hide')
 		},
 		methods:{
+			show(){
+				let self = this;
+				let token = uni.getStorageSync('token')||''
+				console.log(token)
+				if(token){
+					self.getStatus()
+				}else{
+					wx.login({
+					  success (res) {
+					    if (res.code) {
+							console.log(self)
+							self.$api.post('api/user/login',{
+								code:res.code
+							}).then((res)=>{
+								if(res.access_token){
+									self.hasToken=true
+								}else{
+									return
+								}
+								uni.setStorageSync('token',res.access_token)
+								uni.setStorageSync('user_id',res.user_id)
+								uni.setStorageSync('session_key',res.session_key)
+								if (!res.first) {
+									
+									self.getStatus()
+								}else{
+									uni.setStorageSync('first',1)
+								}
+							})
+					    } else {
+					      console.log('登录失败！' + res.errMsg)
+					    }
+					  }
+					 
+					})
+				}
+				// wx.loadFontFace({
+				//   family: 'book',
+				//   global:true,
+				//   source: 'url("https://www.csdc8.top/mini/book3500.ttf")',
+				//   success: res => {
+				//     console.log('font load success', res)
+				//   },
+				//   fail: err => {
+				//     console.log('font load fail', err)
+				//   }
+				// })
+			},
 			getStatus(){
 				this.$api.get('api/pray/show').then((res)=>{
 					console.log(res)

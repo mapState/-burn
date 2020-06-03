@@ -257,7 +257,6 @@ __webpack_require__.r(__webpack_exports__);
       detail.content = decodeURIComponent(detail.content);
       this.detail = detail;
       this.rightTitle = this.detail.info.substr(0, 8);
-      this.imgUrl = this.detail.main_image;
     } catch (e) {
       //TODO handle the exception
     }
@@ -270,11 +269,14 @@ __webpack_require__.r(__webpack_exports__);
     console.log(params);
     if (params.status) {
       this.status = 1;
+      this.imgUrl = this.detail.pray_image;
     } else if (params.expired) {
       this.open();
       this.status = 0;
+      this.imgUrl = this.detail.pay_image;
     } else {
       this.status = 0;
+      this.imgUrl = this.detail.pay_image;
     }
   },
   onShow: function onShow() {
