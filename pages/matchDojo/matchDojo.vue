@@ -9,7 +9,7 @@
 		<view class="wantList">
 			<text class="wantItem" v-for="(item,index) in wishList" :key="item">{{item}}</text>
 		</view>
-		<text class="wantTitle">您的本命道场是</text>
+		<text class="wantTitle">您的本命财神是</text>
 		<image :src="detail.main_image" mode="widthFix" class="mainImg"></image>
 		<!-- <view class="natal">
 				

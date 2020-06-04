@@ -52,7 +52,7 @@
 				</view>
 				<view class="shareItem" @click="getPoster">
 					<image src="../../static/img/pIcon.png" mode="aspectFill" class="shareIcon"></image>
-					<text class="shareText">生成海报</text>
+					<text class="shareText">生成福报</text>
 				</view>
 			</view>
 		</uni-popup>

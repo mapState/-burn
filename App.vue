@@ -65,6 +65,11 @@
 				this.$api.get('api/pray/show').then((res)=>{
 					console.log(res)
 					uni.setStorageSync('paryData',res.prayer)
+					try{
+						uni.setStorageSync('name',res.prayer.name)
+					}catch(e){
+						//TODO handle the exception
+					}
 					let detail={...res.dojo}
 					detail.content=encodeURIComponent(detail.content)
 					if(res.status==1){

@@ -211,6 +211,11 @@ var _uniRequest = _interopRequireDefault(__webpack_require__(/*! uni-request */ 
       this.$api.get('api/pray/show').then(function (res) {
         console.log(res);
         uni.setStorageSync('paryData', res.prayer);
+        try {
+          uni.setStorageSync('name', res.prayer.name);
+        } catch (e) {
+          //TODO handle the exception
+        }
         var detail = _objectSpread({}, res.dojo);
         detail.content = encodeURIComponent(detail.content);
         if (res.status == 1) {
