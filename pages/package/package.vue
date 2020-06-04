@@ -199,7 +199,7 @@
 			getPoster(){
 				this.$refs.share.close()
 				uni.showLoading({
-				    title: '海报生成中...',
+				    title: '福报生成中...',
 				});
 				let that = this
 				let context = wx.createCanvasContext('myCanvas');
