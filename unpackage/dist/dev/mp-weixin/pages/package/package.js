@@ -335,7 +335,7 @@ __webpack_require__.r(__webpack_exports__);
     getPoster: function getPoster() {var _this5 = this;
       this.$refs.share.close();
       uni.showLoading({
-        title: '海报生成中...' });
+        title: '福报生成中...' });
 
       var that = this;
       var context = wx.createCanvasContext('myCanvas');

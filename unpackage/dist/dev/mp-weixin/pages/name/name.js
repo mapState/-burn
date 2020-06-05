@@ -328,7 +328,7 @@ __webpack_require__.r(__webpack_exports__);
         heart_want: JSON.stringify(this.wishList),
         birthdate: this.type == 0 ? '阳历' : '阴历',
         birthday: birthday,
-        sex: sex,
+        sex: sex == 0 ? 1 : 0,
         birthplace: birthplace,
         nowplace: nowplace,
         surname: this.nameForom.surname,

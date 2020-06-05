@@ -196,7 +196,7 @@
 					heart_want:JSON.stringify(this.wishList),
 					birthdate:this.type==0?'阳历':'阴历',
 					birthday,
-					sex,
+					sex:sex==0?1:0,
 					birthplace,
 					nowplace,
 					surname:this.nameForom.surname,
