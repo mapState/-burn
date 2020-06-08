@@ -170,6 +170,7 @@
 					if(err.code==500){
 						this.open()
 						this.status=0
+						this.imgUrl=this.detail.pay_image
 					}
 				})
 			},
@@ -312,6 +313,7 @@
 			},
 			close(){
 				this.status=0
+				this.imgUrl=this.detail.pay_image
 				this.$refs.popup.close()
 			},
 			wxPay(pray_id){
@@ -343,6 +345,7 @@
 											duration:1200
 										})
 										this.status=1
+										this.imgUrl=this.detail.pray_image
 									},
 									'fail':function(err1){
 										console.log("支付失败")

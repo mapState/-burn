@@ -306,6 +306,7 @@ __webpack_require__.r(__webpack_exports__);
         if (err.code == 500) {
           _this2.open();
           _this2.status = 0;
+          _this2.imgUrl = _this2.detail.pay_image;
         }
       });
     },
@@ -448,6 +449,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     close: function close() {
       this.status = 0;
+      this.imgUrl = this.detail.pay_image;
       this.$refs.popup.close();
     },
     wxPay: function wxPay(pray_id) {var _this6 = this;
@@ -479,6 +481,7 @@ __webpack_require__.r(__webpack_exports__);
                     duration: 1200 });
 
                   _this6.status = 1;
+                  _this6.imgUrl = _this6.detail.pray_image;
                 },
                 'fail': function fail(err1) {
                   console.log("支付失败");
