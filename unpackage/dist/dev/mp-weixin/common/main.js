@@ -145,7 +145,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-var _uniRequest = _interopRequireDefault(__webpack_require__(/*! uni-request */ 8));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+var _uniRequest = _interopRequireDefault(__webpack_require__(/*! uni-request */ 8));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   onLaunch: function onLaunch() {
 
@@ -153,82 +153,11 @@ var _uniRequest = _interopRequireDefault(__webpack_require__(/*! uni-request */ 
   onShow: function onShow() {
     this.autoUpdate();
     console.log('App Show');
-    this.show();
   },
   onHide: function onHide() {
     console.log('App Hide');
   },
   methods: {
-    show: function show() {
-      var self = this;
-      var token = uni.getStorageSync('token') || '';
-      console.log(token);
-      if (token) {
-        self.getStatus();
-      } else {
-        wx.login({
-          success: function success(res) {
-            if (res.code) {
-              console.log(self);
-              self.$api.post('api/user/login', {
-                code: res.code }).
-              then(function (res) {
-                if (res.access_token) {
-                  self.hasToken = true;
-                } else {
-                  return;
-                }
-                uni.setStorageSync('token', res.access_token);
-                uni.setStorageSync('user_id', res.user_id);
-                uni.setStorageSync('session_key', res.session_key);
-                if (!res.first) {
-
-                  self.getStatus();
-                } else {
-                  uni.setStorageSync('first', 1);
-                }
-              });
-            } else {
-              console.log('登录失败！' + res.errMsg);
-            }
-          } });
-
-
-      }
-      // wx.loadFontFace({
-      //   family: 'book',
-      //   global:true,
-      //   source: 'url("https://www.csdc8.top/mini/book3500.ttf")',
-      //   success: res => {
-      //     console.log('font load success', res)
-      //   },
-      //   fail: err => {
-      //     console.log('font load fail', err)
-      //   }
-      // })
-    },
-    getStatus: function getStatus() {
-      this.$api.get('api/pray/show').then(function (res) {
-        console.log(res);
-        uni.setStorageSync('paryData', res.prayer);
-        try {
-          uni.setStorageSync('name', res.prayer.name);
-        } catch (e) {
-          //TODO handle the exception
-        }
-        var detail = _objectSpread({}, res.dojo);
-        detail.content = encodeURIComponent(detail.content);
-        if (res.status == 1) {
-          uni.redirectTo({
-            url: '/pages/package/package?detail=' + JSON.stringify(detail) + '&status=1' });
-
-        } else if (res.status == 0) {
-          uni.redirectTo({
-            url: '/pages/package/package?detail=' + JSON.stringify(detail) + '&expired=1' });
-
-        }
-      });
-    },
     //获取用户信息
     getInfo: function getInfo() {
       var token = uni.getStorageSync('token');

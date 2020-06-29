@@ -23,7 +23,7 @@
 			<view class="btnBox" v-if="showBtn">
 				<image src="../../static/img/btn.png" class="btnImg" mode="aspectFill"></image>
 				<view class="btnText" @click="open">
-					我要虔诚供奉
+					在线进香
 				</view>
 			</view>
 		</view>
